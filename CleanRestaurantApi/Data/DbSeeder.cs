@@ -30,7 +30,7 @@ namespace CleanRestaurantApi.Data
                     var drinksCategory = await context.Category.FirstAsync(c => c.Name == "Drinks");
 
                     var restaurants = new List<Restaurant>
-                {
+    {
                     new Restaurant
                     {
                         Name = "Roma",
@@ -67,17 +67,16 @@ namespace CleanRestaurantApi.Data
                 };
 
                     context.AddRange(restaurants);
+                    await context.SaveChangesAsync();
                 }
 
                 if (!await context.Role.AnyAsync())
                 {
                     var roles = new List<Role>
                     {
-                        new Role { Name = "Admin"},
-                        new Role { Name = "Manager"},
-                        new Role { Name = "Chef"},
                         new Role { Name = "User"},
-                        new Role { Name = "Guest"},
+                        new Role { Name = "Manager"},
+                        new Role { Name = "Admin"},
                     };
                     context.AddRange(roles);
                     context.SaveChanges();
@@ -85,18 +84,14 @@ namespace CleanRestaurantApi.Data
 
                 if (!await context.User.AnyAsync())
                 {
-                    var adminRole = await context.Role.FirstAsync(r => r.Name == "Admin");
-                    var managerRole = await context.Role.FirstAsync(r => r.Name == "Manager");
-                    var chefRole = await context.Role.FirstAsync(r => r.Name == "Chef");
                     var userRole = await context.Role.FirstAsync(r => r.Name == "User");
-                    var guestRole = await context.Role.FirstAsync(r => r.Name == "Guest");
+                    var managerRole = await context.Role.FirstAsync(r => r.Name == "Manager");
+                    var adminRole = await context.Role.FirstAsync(r => r.Name == "Admin");
                     var users = new List<User>
                 {
-                    new User { Email = "admin@restaurant.com",   PasswordHash = HashPassword("Admin123!"),   RoleId = adminRole.Id},
-                    new User { Email = "manager@restaurant.com", PasswordHash = HashPassword("Manager123!"), RoleId = managerRole.Id},
-                    new User { Email = "chef@restaurant.com",    PasswordHash = HashPassword("Chef123!"),    RoleId = chefRole.Id},
-                    new User { Email = "user@restaurant.com",    PasswordHash = HashPassword("User123!"),    RoleId = userRole.Id},
-                    new User { Email = "guest@restaurant.com",   PasswordHash = HashPassword("Guest123!"),   RoleId = guestRole.Id}
+                    new User { Email = "user@restaurant.com",   PasswordHash = HashPassword("User123!"),   Role = "User"},
+                    new User { Email = "manager@restaurant.com", PasswordHash = HashPassword("Manager123!"), Role = "Manager"},
+                    new User { Email = "admin@restaurant.com",    PasswordHash = HashPassword("Admin123!"),    Role = "Admin"},
                 };
 
                     context.User.AddRange(users);

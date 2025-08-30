@@ -33,7 +33,10 @@ namespace CleanRestaurantApi.Services
             if (pageNumber <= 0) pageNumber = 1;
             if (pageSize <= 0) pageSize = 10;
 
-            var baseQuery = _context.Restaurant.Include(r => r.Dishes).AsQueryable();
+            var baseQuery = _context.Restaurant
+                .Include(r => r.Dishes)
+                .ThenInclude(d => d.Category)
+                .AsQueryable();
 
             var totalItems = await baseQuery.CountAsync();
 
@@ -45,10 +48,11 @@ namespace CleanRestaurantApi.Services
                     Name = r.Name,
                     City = r.City,
                     Street = r.Street,
-                    Dishes = r.Dishes.Select(d => new Dish
+                    Dishes = r.Dishes.Select(d => new DishDto
                     {
                         Name = d.Name,
-                        Price = d.Price
+                        Price = d.Price,
+                        CategoryName = d.Category.Name // jeśli masz nawigację do Category
                     }).ToList()
                 })
                 .ToListAsync();

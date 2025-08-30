@@ -14,7 +14,7 @@ namespace CleanRestaurantApi.Entities
 
         [Required]
         public string PasswordHash { get; set; } = default!;
-        public int? RoleId { get; set; }
+        public string? Role { get; set; } = "User";
         public string? RefreshToken { get; set; }
         public DateTime? RefreshTokenExpiryTime { get; set; }
     }

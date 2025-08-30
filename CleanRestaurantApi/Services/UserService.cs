@@ -70,7 +70,7 @@ namespace CleanRestaurantApi.Services
 
             user.Email = dto.Email;
             user.PasswordHash = _passwordHasher.HashPassword(user, dto.Password);
-            user.RoleId = dto.RoleId;
+            user.Role = dto.Role;
 
             await _context.SaveChangesAsync();
         }

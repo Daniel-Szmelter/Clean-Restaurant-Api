@@ -29,6 +29,7 @@ namespace CleanRestaurantApi.Services
     {
         new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
         new Claim(ClaimTypes.Email, user.Email),
+        new Claim(ClaimTypes.Role, user.Role) // <-- dodajemy nazwę roli
     };
 
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

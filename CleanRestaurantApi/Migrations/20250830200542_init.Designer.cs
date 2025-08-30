@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CleanRestaurantApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250826185355_init")]
+    [Migration("20250830200542_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -33,9 +33,6 @@ namespace CleanRestaurantApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CategoryId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime");
 
@@ -53,8 +50,6 @@ namespace CleanRestaurantApi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
 
                     b.ToTable("Category");
                 });
@@ -196,6 +191,9 @@ namespace CleanRestaurantApi.Migrations
                     b.Property<DateTime?>("RefreshTokenExpiryTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Role")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("RoleId")
                         .HasColumnType("int");
 
@@ -210,13 +208,6 @@ namespace CleanRestaurantApi.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("User");
-                });
-
-            modelBuilder.Entity("CleanRestaurantApi.Entities.Category", b =>
-                {
-                    b.HasOne("CleanRestaurantApi.Entities.Category", null)
-                        .WithMany("Categories")
-                        .HasForeignKey("CategoryId");
                 });
 
             modelBuilder.Entity("CleanRestaurantApi.Entities.Dish", b =>
@@ -241,11 +232,6 @@ namespace CleanRestaurantApi.Migrations
                     b.HasOne("CleanRestaurantApi.Entities.Role", null)
                         .WithMany("Users")
                         .HasForeignKey("RoleId");
-                });
-
-            modelBuilder.Entity("CleanRestaurantApi.Entities.Category", b =>
-                {
-                    b.Navigation("Categories");
                 });
 
             modelBuilder.Entity("CleanRestaurantApi.Entities.Restaurant", b =>

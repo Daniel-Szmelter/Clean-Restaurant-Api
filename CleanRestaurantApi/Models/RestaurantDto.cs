@@ -7,6 +7,6 @@ namespace CleanRestaurantApi.Models
         public string Name { get; set; } = default!;
         public string City { get; set; } = default!;
         public string Street { get; set; } = default!;
-        public List<Dish> Dishes { get; set; }
+        public List<DishDto> Dishes { get; set; }
     }
 }

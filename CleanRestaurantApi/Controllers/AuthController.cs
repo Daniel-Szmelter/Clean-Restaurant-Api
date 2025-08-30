@@ -31,10 +31,10 @@ namespace CleanRestaurantApi.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult> Login([FromBody] LoginDto dto)
+        public async Task<ActionResult<AuthResponseDto>> Login([FromBody] LoginDto dto)
         {
-            await _authService.LoginAsync(dto);
-            return Ok();
+            var authResponse = await _authService.LoginAsync(dto);
+            return Ok(authResponse);
         }
 
         [Authorize(Roles = "Admin")]
