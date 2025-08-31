@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CleanRestaurantApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250830200542_init")]
+    [Migration("20250831162851_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -69,6 +69,10 @@ namespace CleanRestaurantApi.Migrations
                         .HasColumnType("datetime");
 
                     b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")

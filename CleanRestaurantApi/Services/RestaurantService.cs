@@ -52,7 +52,8 @@ namespace CleanRestaurantApi.Services
                     {
                         Name = d.Name,
                         Price = d.Price,
-                        CategoryName = d.Category.Name // jeśli masz nawigację do Category
+                        CategoryName = d.Category.Name,
+                        Description = d.Description
                     }).ToList()
                 })
                 .ToListAsync();
