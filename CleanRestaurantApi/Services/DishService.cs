@@ -38,9 +38,17 @@ namespace CleanRestaurantApi.Services
 
         public async Task CreateAsync(CreateDishDto dto)
         {
-            var dish = _mapper.Map<Dish>(dto);
-            _context.Dish.Add(dish);
-            await _context.SaveChangesAsync();
+            try
+            {
+                var dish = _mapper.Map<Dish>(dto);
+                _context.Dish.Add(dish);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("ERROR creating dish: " + ex.Message);
+                throw;
+            }
         }
 
         public async Task UpdateAsync(int id, UpdateDishDto dto)

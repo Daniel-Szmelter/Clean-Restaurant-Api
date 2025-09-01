@@ -35,8 +35,9 @@ namespace CleanRestaurantApi.Controllers
         [HttpPost]
         public async Task<ActionResult> Create([FromBody] CreateDishDto dto)
         {
+            Console.WriteLine($"Received dish: {System.Text.Json.JsonSerializer.Serialize(dto)}");
             await _dishService.CreateAsync(dto);
-            return Ok("Dish created succesfully");
+            return Ok(new { message = "Dish created" });
         }
 
         [HttpPut("{id}")]

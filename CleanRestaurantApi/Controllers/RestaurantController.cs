@@ -9,11 +9,11 @@ namespace CleanRestaurantApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class RestaurantsController : ControllerBase
+    public class RestaurantController : ControllerBase
     {
         private readonly IRestaurantService _restaurantService;
 
-        public RestaurantsController(IRestaurantService restaurantService)
+        public RestaurantController(IRestaurantService restaurantService)
         {
             _restaurantService = restaurantService;
         }
@@ -38,7 +38,7 @@ namespace CleanRestaurantApi.Controllers
         public async Task<ActionResult> Create([FromBody] CreateRestaurantDto dto)
         {
             var restaurantId = await _restaurantService.CreateAsync(dto);
-            return Ok("Restaurant created succesfully");
+            return Ok(new { id = restaurantId });
         }
 
         [HttpPut("{id}")]

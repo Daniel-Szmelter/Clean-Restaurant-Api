@@ -118,6 +118,8 @@ namespace CleanRestaurantApi
 
             builder.Services.AddScoped<IAuthService, AuthService>();
 
+            builder.Services.AddScoped<IDishService, DishService>();
+
 
             var app = builder.Build();
 
