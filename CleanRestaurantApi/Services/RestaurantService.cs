@@ -28,10 +28,8 @@ namespace CleanRestaurantApi.Services
             return _mapper.Map<RestaurantDto>(restaurant);
         }
 
-        public async Task<List<RestaurantDto>> GetAllAsync(int pageNumber, int pageSize)
+        public async Task<List<RestaurantDto>> GetAllAsync()
         {
-            if (pageNumber <= 0) pageNumber = 1;
-            if (pageSize <= 0) pageSize = 10;
 
             var baseQuery = _context.Restaurant
                 .Include(r => r.Dishes)
@@ -41,24 +39,30 @@ namespace CleanRestaurantApi.Services
             var totalItems = await baseQuery.CountAsync();
 
             var restaurants = await baseQuery
-                .Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize)
-                .Select(r => new RestaurantDto
-                {
-                    Name = r.Name,
-                    City = r.City,
-                    Street = r.Street,
-                    Dishes = r.Dishes.Select(d => new DishDto
-                    {
-                        Name = d.Name,
-                        Price = d.Price,
-                        CategoryName = d.Category.Name,
-                        Description = d.Description
-                    }).ToList()
-                })
-                .ToListAsync();
+     .Select(r => new RestaurantDto
+     {
+         Id = r.Id,
+         Name = r.Name,
+         City = r.City,
+         Street = r.Street,
+         Dishes = r.Dishes.Select(d => new DishDto
+         {
+             Name = d.Name,
+             Price = d.Price,
+             Description = d.Description,
+             CategoryId = d.CategoryId,        // ✅ to zwróci poprawne ID
+             CategoryName = d.Category.Name    // opcjonalnie
+         }).ToList()
+     })
+     .ToListAsync();
 
-            var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+            foreach (var r in restaurants)
+            {
+                foreach (var d in r.Dishes)
+                {
+                    Console.WriteLine($"{d.Name} => {d.CategoryName}");
+                }
+            }
 
             return restaurants;
         }
@@ -106,6 +110,7 @@ namespace CleanRestaurantApi.Services
                     Name = d.Name,
                     Price = d.Price,
                     CategoryId = d.CategoryId,
+                    Description = d.Description,
                     RestaurantId = restaurant.Id
                 }).ToList();
             }

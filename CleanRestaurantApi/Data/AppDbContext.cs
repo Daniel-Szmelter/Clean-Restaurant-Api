@@ -40,8 +40,19 @@ namespace CleanRestaurantAPI.Data
                         .HasColumnType("datetime")
                         .IsRequired(false);
                 }
-
             }
+
+            // 🔥 Dodaj konfigurację relacji
+            modelBuilder.Entity<Dish>()
+                .HasOne(d => d.Category)
+                .WithMany() // jeśli kategoria nie ma kolekcji Dish
+                .HasForeignKey(d => d.CategoryId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Precyzja dla ceny
+            modelBuilder.Entity<Dish>()
+                .Property(d => d.Price)
+                .HasPrecision(10, 2);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

@@ -26,11 +26,9 @@ namespace CleanRestaurantApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<PagedResult<Restaurant>>> GetAll(
-            [FromQuery] int pageNumber,
-            [FromQuery] int pageSize)
+        public async Task<ActionResult<Restaurant>> GetAll()
         {
-            var restaurants = await _restaurantService.GetAllAsync(pageNumber, pageSize);
+            var restaurants = await _restaurantService.GetAllAsync();
             return Ok(restaurants);
         }
 
@@ -52,7 +50,7 @@ namespace CleanRestaurantApi.Controllers
         public async Task<IActionResult> UpdatePartially(int id, [FromBody] JsonPatchDocument<UpdateRestaurantDto> patchDoc)
         {
             await _restaurantService.UpdatePartiallyAsync(id, patchDoc);
-            return Ok("Restaurant updated succesfully");
+            return Ok();
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
