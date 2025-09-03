@@ -34,28 +34,28 @@ namespace CleanRestaurantApi.Controllers
         public async Task<ActionResult> Create([FromBody] CreateUserDto dto)
         {
             await _userService.CreateAsync(dto);
-            return Ok("User created succesfully");
+            return Ok(new { message = "User created successfully" });
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] UpdateUserDto dto)
         {
             await _userService.UpdateAsync(id, dto);
-            return Ok("User updated succesfully");
+            return Ok(new { message = "User updated successfully" });
         }
 
         [HttpPatch("{id}")]
         public async Task<IActionResult> UpdatePartially(int id, [FromBody] JsonPatchDocument<UpdateUserDto> patchDoc)
         {
             await _userService.UpdatePartiallyAsync(id, patchDoc);
-            return Ok("User updated succesfully");
+            return Ok(new { message = "User updated successfully" });
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             await _userService.DeleteAsync(id);
-            return Ok("User deleted succesfully");
+            return Ok(new { message = "User deleted successfully" });
         }
     }
 }

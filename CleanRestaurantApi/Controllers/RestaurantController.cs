@@ -40,23 +40,23 @@ namespace CleanRestaurantApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] UpdateRestaurantDto dto)
+        public async Task<ActionResult> Update(int id, [FromBody] UpdateRestaurantDto dto)
         {
             await _restaurantService.UpdateAsync(id, dto);
             return Ok("Restaurant updated succesfully");
         }
 
         [HttpPatch("{id}")]
-        public async Task<IActionResult> UpdatePartially(int id, [FromBody] JsonPatchDocument<UpdateRestaurantDto> patchDoc)
+        public async Task<ActionResult> UpdatePartially(int id, [FromBody] JsonPatchDocument<UpdateRestaurantDto> patchDoc)
         {
             await _restaurantService.UpdatePartiallyAsync(id, patchDoc);
             return Ok();
         }
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             await _restaurantService.DeleteAsync(id);
-            return Ok("Restaurant deleted succesfully");
+            return Ok(new { message = "Restaurant deleted successfully" });
         }
     }
 }

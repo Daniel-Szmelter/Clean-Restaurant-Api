@@ -36,28 +36,28 @@ namespace CleanRestaurantApi.Controllers
         public async Task<ActionResult> Create([FromBody] CreateCategoryDto dto)
         {
             await _categoryService.CreateAsync(dto);
-            return Ok("Category created succesfully");
+            return Ok(new { message = "Category created successfully" });
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] UpdateCategoryDto dto)
+        public async Task<ActionResult> Update(int id, [FromBody] UpdateCategoryDto dto)
         {
             await _categoryService.UpdateAsync(id, dto);
             return Ok("Category updated succesfully");
         }
 
         [HttpPatch("{id}")]
-        public async Task<IActionResult> UpdatePartially(int id, [FromBody] JsonPatchDocument<UpdateCategoryDto> patchDoc)
+        public async Task<ActionResult> UpdatePartially(int id, [FromBody] JsonPatchDocument<UpdateCategoryDto> patchDoc)
         {
             await _categoryService.UpdatePartiallyAsync(id, patchDoc);
-            return Ok("Category updated succesfully");
+            return Ok(new { message = "Category updated successfully" });
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             await _categoryService.DeleteAsync(id);
-            return Ok("Category deleted succesfully");
+            return Ok(new { message = "Category deleted successfully" });
         }
     }
 }
