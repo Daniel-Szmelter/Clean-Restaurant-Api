@@ -45,7 +45,8 @@ namespace CleanRestaurantApi.Services
         { 
             var user = new User
             {
-                Email = dto.Email
+                Email = dto.Email,
+                Role = dto.Role
             };
 
             user.PasswordHash = _passwordHasher.HashPassword(user, dto.Password);

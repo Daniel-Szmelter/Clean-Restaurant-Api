@@ -36,12 +36,5 @@ namespace CleanRestaurantApi.Controllers
             var authResponse = await _authService.LoginAsync(dto);
             return Ok(authResponse);
         }
-
-        [Authorize(Roles = "Admin")]
-        [HttpGet("admin-only")]
-        public IActionResult AdminOnly()
-        {
-            return Ok("You are admin!");
-        }
     }
 }

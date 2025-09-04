@@ -11,6 +11,8 @@ namespace CleanRestaurantApi.Mappings
             CreateMap<CreateUserDto, User>()
                 .ForMember(dest => dest.PasswordHash, opt => opt.Ignore());
             CreateMap<User, UserDto>();
+            CreateMap<User, UpdateUserDto>();
+            CreateMap<UpdateUserDto, User>();
 
             CreateMap<Restaurant, CreateRestaurantDto>();
             CreateMap<CreateRestaurantDto, Restaurant>();
