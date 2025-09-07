@@ -42,14 +42,12 @@ namespace CleanRestaurantAPI.Data
                 }
             }
 
-            // 🔥 Dodaj konfigurację relacji
             modelBuilder.Entity<Dish>()
                 .HasOne(d => d.Category)
-                .WithMany() // jeśli kategoria nie ma kolekcji Dish
+                .WithMany()
                 .HasForeignKey(d => d.CategoryId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // Precyzja dla ceny
             modelBuilder.Entity<Dish>()
                 .Property(d => d.Price)
                 .HasPrecision(10, 2);
@@ -57,7 +55,10 @@ namespace CleanRestaurantAPI.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(_connectionString);
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(_connectionString);
+            }
         }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

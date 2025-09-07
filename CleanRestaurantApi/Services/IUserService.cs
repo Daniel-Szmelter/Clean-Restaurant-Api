@@ -10,8 +10,7 @@ namespace CleanRestaurantApi.Services
         Task<UserDto> GetByIdAsync(int id);
         public Task<List<UserDto>> GetAllAsync();
         Task CreateAsync(CreateUserDto dto);
-        Task UpdateAsync(int id, UpdateUserDto dto);
-        Task UpdatePartiallyAsync(int id, JsonPatchDocument<UpdateUserDto> patchDoc);
+        Task UpdateAsync(int id, JsonPatchDocument<UpdateUserDto> patchDoc);
         Task DeleteAsync(int id);
     }
 }

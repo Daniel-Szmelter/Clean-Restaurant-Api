@@ -1,4 +1,5 @@
 ﻿using CleanRestaurantApi.Models;
+using CleanRestaurantApi.Models.Auth;
 using CleanRestaurantApi.Services;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -24,9 +25,7 @@ namespace CleanRestaurantApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<DishDto>>> GetAll(
-            [FromQuery] int page = 1,
-            [FromQuery] int pageSize = 10)
+        public async Task<ActionResult<IEnumerable<DishDto>>> GetAll()
         {
             var dishes = await _dishService.GetAllAsync();
             return Ok(dishes);
@@ -35,30 +34,22 @@ namespace CleanRestaurantApi.Controllers
         [HttpPost]
         public async Task<ActionResult> Create([FromBody] CreateDishDto dto)
         {
-            Console.WriteLine($"Received dish: {System.Text.Json.JsonSerializer.Serialize(dto)}");
             await _dishService.CreateAsync(dto);
-            return Ok(new { message = "Dish created" });
-        }
-
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] UpdateDishDto dto)
-        {
-            await _dishService.UpdateAsync(id, dto);
-            return Ok("Dish updated succesfully");
+            return Ok(new MessageResponseDto { Message = "Dish created succesfully" });
         }
 
         [HttpPatch("{id}")]
-        public async Task<IActionResult> UpdatePartially(int id, [FromBody] JsonPatchDocument<UpdateDishDto> patchDoc)
+        public async Task<ActionResult> UpdatePartially(int id, [FromBody] JsonPatchDocument<UpdateDishDto> patchDoc)
         {
-            await _dishService.UpdatePartiallyAsync(id, patchDoc);
-            return Ok("Dish updated succesfully");
+            await _dishService.UpdateAsync(id, patchDoc);
+            return Ok(new MessageResponseDto { Message = "Dish updated succesfully" });
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             await _dishService.DeleteAsync(id);
-            return Ok("Dish deleted succesfully");
+            return Ok(new MessageResponseDto { Message = "Dish deleted succesfully" });
         }
     }
 }

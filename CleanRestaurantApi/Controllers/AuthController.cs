@@ -26,14 +26,14 @@ namespace CleanRestaurantApi.Controllers
         public async Task<ActionResult> Register([FromBody] CreateUserDto dto)
         {
             await _authService.RegisterAsync(dto);
-
-            return Ok(new { message = "User created succesfully"});
+            return Ok(new MessageResponseDto { Message = "User created succesfully" });
         }
 
         [HttpPost("login")]
         public async Task<ActionResult<AuthResponseDto>> Login([FromBody] LoginDto dto)
         {
             var authResponse = await _authService.LoginAsync(dto);
+            if (authResponse == null) return Unauthorized();
             return Ok(authResponse);
         }
     }

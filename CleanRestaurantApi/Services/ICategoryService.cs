@@ -8,8 +8,7 @@ namespace CleanRestaurantApi.Services
         Task<CategoryDto> GetByIdAsync(int id);
         Task<List<CategoryDto>> GetAllAsync();
         Task CreateAsync(CreateCategoryDto dto);
-        Task UpdateAsync(int id, UpdateCategoryDto dto);
-        Task UpdatePartiallyAsync(int id, JsonPatchDocument<UpdateCategoryDto> patchDoc);
+        Task UpdateAsync(int id, JsonPatchDocument<UpdateCategoryDto> patchDoc);
         Task DeleteAsync(int id);
     }
 }

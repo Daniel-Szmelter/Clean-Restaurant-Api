@@ -9,8 +9,7 @@ namespace CleanRestaurantApi.Services
         Task<RestaurantDto> GetByIdAsync(int id);
         Task<List<RestaurantDto>> GetAllAsync();
         Task<int> CreateAsync(CreateRestaurantDto dto);
-        Task UpdateAsync(int id, UpdateRestaurantDto dto);
-        Task UpdatePartiallyAsync(int id, JsonPatchDocument<UpdateRestaurantDto> patchDoc);
+        Task UpdateAsync(int id, JsonPatchDocument<UpdateRestaurantDto> patchDoc);
         Task DeleteAsync(int id);
     }
 }

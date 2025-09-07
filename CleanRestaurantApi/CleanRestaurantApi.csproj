@@ -38,8 +38,6 @@
 
   <ItemGroup>
     <Folder Include="Models\Dishes\" />
-    <Folder Include="Tests\Integration\" />
-    <Folder Include="Tests\Validators\" />
   </ItemGroup>
 
 </Project>

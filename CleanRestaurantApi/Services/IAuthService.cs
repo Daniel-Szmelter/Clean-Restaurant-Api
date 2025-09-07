@@ -7,7 +7,7 @@ namespace CleanRestaurantApi.Services
     {
         Task RegisterAsync(CreateUserDto dto);
         Task<AuthResponseDto?> LoginAsync(LoginDto dto);
-
         Task<AuthResponseDto?> RefreshTokenAsync(string token, string refreshToken);
+
     }
 }

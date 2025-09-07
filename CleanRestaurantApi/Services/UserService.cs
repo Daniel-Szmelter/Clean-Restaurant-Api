@@ -55,20 +55,7 @@ namespace CleanRestaurantApi.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(int id, UpdateUserDto dto)
-        {
-            var user = await _context.User.FindAsync(id);
-            if (user == null)
-                throw new KeyNotFoundException("User not found");
-
-            user.Email = dto.Email;
-            user.PasswordHash = _passwordHasher.HashPassword(user, dto.Password);
-            user.Role = dto.Role;
-
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task UpdatePartiallyAsync(int id, JsonPatchDocument<UpdateUserDto> patchDoc)
+        public async Task UpdateAsync(int id, JsonPatchDocument<UpdateUserDto> patchDoc)
         {
             if (patchDoc == null) throw new KeyNotFoundException("patchDoc cannot be null");
 

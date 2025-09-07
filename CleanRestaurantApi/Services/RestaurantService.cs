@@ -75,20 +75,7 @@ namespace CleanRestaurantApi.Services
             return restaurant.Id;
         }
 
-        public async Task UpdateAsync(int id, UpdateRestaurantDto dto)
-        {
-            var restaurant = await _context.Restaurant.FindAsync(id);
-            if (restaurant == null) throw new KeyNotFoundException("Restaurant not found");
-
-            restaurant.Name = dto.Name;
-            restaurant.City = dto.City;
-            restaurant.Street = dto.Street;
-            restaurant.Dishes = _mapper.Map<List<Dish>>(dto.Dishes);
-
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task UpdatePartiallyAsync(int id, JsonPatchDocument<UpdateRestaurantDto> patchDoc)
+        public async Task UpdateAsync(int id, JsonPatchDocument<UpdateRestaurantDto> patchDoc)
         {
             if (patchDoc == null) throw new KeyNotFoundException("patchDoc cannot be null");
 

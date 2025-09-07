@@ -37,32 +37,26 @@ namespace CleanRestaurantApi.Services
             _context.SaveChanges();
         }
 
-        public async Task<AuthResponseDto> LoginAsync(LoginDto dto)
+        public async Task<AuthResponseDto?> LoginAsync(LoginDto dto)
         {
-            // Szukamy użytkownika po emailu
             var user = await _context.User.FirstOrDefaultAsync(u => u.Email == dto.Email);
-            if (user == null)
-                throw new UnauthorizedAccessException("Invalid username or password");
+            if (user == null) return null;
 
-            // Tworzymy hasher do weryfikacji hasła
             var passwordHasher = new PasswordHasher<User>();
             var result = passwordHasher.VerifyHashedPassword(user, user.PasswordHash, dto.Password);
 
-            if (result == PasswordVerificationResult.Failed)
-                throw new UnauthorizedAccessException("Invalid username or password");
+            if (result == PasswordVerificationResult.Failed) return null;
 
-            // Generujemy tokeny
             var accessToken = _jwtService.GenerateAccessToken(user);
             var refreshToken = _jwtService.GenerateRefreshToken();
 
-            // Zapisujemy refresh token w bazie
             user.RefreshToken = refreshToken;
             user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);
-
             await _context.SaveChangesAsync();
 
             return new AuthResponseDto(accessToken, refreshToken);
         }
+
 
         public async Task<AuthResponseDto?> RefreshTokenAsync(string token, string refreshToken)
         {

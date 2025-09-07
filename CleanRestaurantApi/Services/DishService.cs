@@ -51,19 +51,7 @@ namespace CleanRestaurantApi.Services
             }
         }
 
-        public async Task UpdateAsync(int id, UpdateDishDto dto)
-        {
-            var dish = await _context.Dish.FindAsync(id);
-            if (dish == null) throw new KeyNotFoundException("Dish not found");
-
-            dish.Name = dto.Name;
-            dish.Price = dto.Price;
-            dish.CategoryId = dto.CategoryId;
-            dish.RestaurantId = dto.RestaurantId;
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task UpdatePartiallyAsync(int id, JsonPatchDocument<UpdateDishDto> patchDoc)
+        public async Task UpdateAsync(int id, JsonPatchDocument<UpdateDishDto> patchDoc)
         {
             if (patchDoc == null) throw new KeyNotFoundException("patchDoc cannot be null");
 
