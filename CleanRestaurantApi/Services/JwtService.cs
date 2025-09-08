@@ -1,6 +1,7 @@
 ﻿using CleanRestaurantApi.Entities;
 using CleanRestaurantApi.Models;
 using CleanRestaurantApi.Models.Auth;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
@@ -14,9 +15,9 @@ namespace CleanRestaurantApi.Services
     {
         private readonly JwtSettings _jwtSettings;
 
-        public JwtService(JwtSettings jwtSettings)
+        public JwtService(IOptions<JwtSettings> options)
         {
-            _jwtSettings = jwtSettings;
+            _jwtSettings = options.Value;
         }
 
         // Generowanie access tokena dla użytkownika
@@ -26,14 +27,18 @@ namespace CleanRestaurantApi.Services
 
             var claims = new[]
             {
-                new Claim(ClaimTypes.Email, user.Email ?? ""), // <- używamy Email zamiast Name
-                new Claim(ClaimTypes.Role, user.Role ?? "")
-            };
+        new Claim(ClaimTypes.Email, user.Email ?? ""),
+        new Claim(ClaimTypes.Role, user.Role ?? "")
+    };
+
+            var now = DateTime.UtcNow;
+            var expires = now.AddMinutes(_jwtSettings.AccessTokenExpirationMinutes).AddSeconds(1); // minimalna różnica
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddMinutes(_jwtSettings.AccessTokenExpirationMinutes),
+                Expires = expires,
+                NotBefore = now,
                 Issuer = _jwtSettings.Issuer,
                 Audience = _jwtSettings.Audience,
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256)
@@ -43,6 +48,7 @@ namespace CleanRestaurantApi.Services
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
+
         public string GenerateRefreshToken()
         {
             var randomBytes = new byte[32];

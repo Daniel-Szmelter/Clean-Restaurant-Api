@@ -2,6 +2,7 @@
 using CleanRestaurantApi.Models;
 using CleanRestaurantApi.Models.Auth;
 using CleanRestaurantApi.Services;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
@@ -25,7 +26,11 @@ namespace CleanRestaurantApi.Tests.Services
                 Audience = "TestAudience",
                 AccessTokenExpirationMinutes = 60
             };
-            _jwtService = new JwtService(jwtSettings);
+
+            // <-- tutaj opakowujemy w IOptions
+            var options = Options.Create(jwtSettings);
+
+            _jwtService = new JwtService(options);
         }
 
         [Fact]
