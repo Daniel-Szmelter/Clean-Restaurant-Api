@@ -41,7 +41,7 @@ namespace CleanRestaurantApi.Tests.Controllers
             // Act
             var result = await _controller.GetById(1);
 
-            // Assert
+            
             var okResult = Assert.IsType<OkObjectResult>(result.Result);
             var returnedDish = Assert.IsType<DishDto>(okResult.Value);
             Assert.Equal("Pizza", returnedDish.Name);
@@ -67,7 +67,7 @@ namespace CleanRestaurantApi.Tests.Controllers
             // Act
             var result = await _controller.GetAll();
 
-            // Assert
+            
             var okResult = Assert.IsType<OkObjectResult>(result.Result);
             var returnedDishes = Assert.IsType<List<DishDto>>(okResult.Value);
             Assert.Equal(2, returnedDishes.Count);
@@ -87,7 +87,7 @@ namespace CleanRestaurantApi.Tests.Controllers
             // Act
             var result = await _controller.Create(dto);
 
-            // Assert
+            
             var okResult = Assert.IsType<OkObjectResult>(result);
             var response = Assert.IsType<MessageResponseDto>(okResult.Value);
             Assert.Equal("Dish created succesfully", response.Message);
@@ -104,7 +104,7 @@ namespace CleanRestaurantApi.Tests.Controllers
             // Act
             var result = await _controller.UpdatePartially(1, patchDoc);
 
-            // Assert
+            
             var okResult = Assert.IsType<OkObjectResult>(result);
             var response = Assert.IsType<MessageResponseDto>(okResult.Value);
             Assert.Equal("Dish updated succesfully", response.Message);
@@ -120,7 +120,7 @@ namespace CleanRestaurantApi.Tests.Controllers
             // Act
             var result = await _controller.Delete(1);
 
-            // Assert
+            
             var okResult = Assert.IsType<OkObjectResult>(result);
             var response = Assert.IsType<MessageResponseDto>(okResult.Value);
             Assert.Equal("Dish deleted succesfully", response.Message);

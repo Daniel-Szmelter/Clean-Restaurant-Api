@@ -61,7 +61,7 @@ namespace CleanRestaurantApi.Tests.Services
             // Act
             var result = await service.GetByIdAsync(dish.Id);
 
-            // Assert
+            
             Assert.NotNull(result);
             Assert.Equal(dish.Name, result.Name);
             Assert.Equal(dish.Price, result.Price);
@@ -95,7 +95,7 @@ namespace CleanRestaurantApi.Tests.Services
             // Act
             await service.CreateAsync(dto);
 
-            // Assert
+            
             var dishInDb = await context.Dish.FirstOrDefaultAsync(d => d.Name == dto.Name);
             Assert.NotNull(dishInDb);
             Assert.Equal(dto.Name, dishInDb!.Name);
@@ -121,7 +121,7 @@ namespace CleanRestaurantApi.Tests.Services
             // Act
             await service.UpdateAsync(dish.Id, patch);
 
-            // Assert
+            
             var updatedDish = await context.Dish.FindAsync(dish.Id);
             Assert.Equal("Updated Pasta", updatedDish!.Name);
         }
@@ -140,7 +140,7 @@ namespace CleanRestaurantApi.Tests.Services
             // Act
             await service.DeleteAsync(dish.Id);
 
-            // Assert
+            
             var deletedDish = await context.Dish.FindAsync(dish.Id);
             Assert.Null(deletedDish);
         }

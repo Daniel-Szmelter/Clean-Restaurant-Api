@@ -17,7 +17,8 @@ namespace CleanRestaurantApi.Tests.Controllers
         public AuthControllerTests()
         {
             _authServiceMock = new Mock<IAuthService>();
-            _controller = new AuthController(_authServiceMock.Object);        }
+            _controller = new AuthController(_authServiceMock.Object);
+        }
 
         [Fact]
         public async Task Register_ShouldReturnOk_WhenUserIsCreated()
@@ -35,7 +36,7 @@ namespace CleanRestaurantApi.Tests.Controllers
             // Act
             var result = await _controller.Register(dto);
 
-            // Assert
+            
             var okResult = Assert.IsType<OkObjectResult>(result);
             var response = Assert.IsType<MessageResponseDto>(okResult.Value);
             Assert.Equal("User created succesfully", response.Message);
@@ -60,7 +61,7 @@ namespace CleanRestaurantApi.Tests.Controllers
             // Act
             var result = await _controller.Login(dto);
 
-            // Assert
+            
             var okResult = Assert.IsType<OkObjectResult>(result.Result);
             var response = Assert.IsType<AuthResponseDto>(okResult.Value);
 
@@ -71,7 +72,6 @@ namespace CleanRestaurantApi.Tests.Controllers
         [Fact]
         public async Task Login_ShouldReturnUnauthorized_WhenAuthServiceReturnsNull()
         {
-            // Arrange
             var dto = new LoginDto
             {
                 Email = "wrong@example.com",
@@ -81,10 +81,8 @@ namespace CleanRestaurantApi.Tests.Controllers
             _authServiceMock.Setup(s => s.LoginAsync(dto))
                             .ReturnsAsync((AuthResponseDto?)null);
 
-            // Act
             var result = await _controller.Login(dto);
 
-            // Assert
             var unauthorizedResult = Assert.IsType<UnauthorizedResult>(result.Result);
             _authServiceMock.Verify(s => s.LoginAsync(dto), Times.Once);
         }
@@ -92,7 +90,6 @@ namespace CleanRestaurantApi.Tests.Controllers
         [Fact]
         public async Task Register_ShouldReturnBadRequest_WhenServiceThrowsException()
         {
-            // Arrange
             var dto = new CreateUserDto
             {
                 Email = "duplicate@example.com",
@@ -102,10 +99,8 @@ namespace CleanRestaurantApi.Tests.Controllers
             _authServiceMock.Setup(s => s.RegisterAsync(dto))
                             .ThrowsAsync(new InvalidOperationException("User already exists"));
 
-            // Act
             Func<Task> action = async () => await _controller.Register(dto);
 
-            // Assert
             var ex = await Assert.ThrowsAsync<InvalidOperationException>(action);
             Assert.Equal("User already exists", ex.Message);
 
