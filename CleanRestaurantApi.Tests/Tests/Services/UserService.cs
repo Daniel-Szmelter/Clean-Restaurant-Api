@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using CleanRestaurantApi.Data;
 using CleanRestaurantApi.Entities;
 using CleanRestaurantApi.Mappings;
 using CleanRestaurantApi.Models;
@@ -9,10 +8,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Xunit;
 
 namespace CleanRestaurantApi.Tests.Services
 {
@@ -25,14 +20,12 @@ namespace CleanRestaurantApi.Tests.Services
 
         public UserServiceTests()
         {
-            // InMemory database
             var options = new DbContextOptionsBuilder<AppDbContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .Options;
 
             _context = new AppDbContext(options);
 
-            // Dodanie przykładowego użytkownika
             _context.User.Add(new User
             {
                 Id = 1,
@@ -42,7 +35,6 @@ namespace CleanRestaurantApi.Tests.Services
             });
             _context.SaveChanges();
 
-            // AutoMapper - użycie wszystkich Twoich profili
             var mapperConfig = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<CategoryMappingProfile>();
@@ -52,12 +44,10 @@ namespace CleanRestaurantApi.Tests.Services
             });
             _mapper = mapperConfig.CreateMapper();
 
-            // Mock PasswordHasher
             _passwordHasherMock = new Mock<IPasswordHasher<User>>();
             _passwordHasherMock.Setup(ph => ph.HashPassword(It.IsAny<User>(), It.IsAny<string>()))
                                .Returns((User u, string p) => "hashed_" + p);
 
-            // Serwis
             _service = new UserService(_context, _mapper, _passwordHasherMock.Object);
         }
 

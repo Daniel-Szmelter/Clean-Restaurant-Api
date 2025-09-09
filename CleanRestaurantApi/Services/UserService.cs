@@ -42,7 +42,7 @@ namespace CleanRestaurantApi.Services
         }
 
         public async Task CreateAsync(CreateUserDto dto)
-        { 
+        {
             var user = new User
             {
                 Email = dto.Email,

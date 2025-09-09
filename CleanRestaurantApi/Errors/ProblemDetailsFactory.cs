@@ -21,7 +21,6 @@ namespace CleanRestaurantApi.Errors
                 Instance = httpContext.Request.Path
             };
 
-            // standardowe rozszerzenia
             problem.Extensions["traceId"] = httpContext.TraceIdentifier;
             problem.Extensions["code"] = code.ToString();
 
@@ -36,7 +35,6 @@ namespace CleanRestaurantApi.Errors
             Exception ex,
             bool includeExceptionDetails)
         {
-            // AppException – zdefiniowane mapowanie
             if (ex is AppException appEx)
             {
                 return BuildProblemDetails(
@@ -49,11 +47,9 @@ namespace CleanRestaurantApi.Errors
                 );
             }
 
-            // FluentValidation (jeśli ktoś rzuca FluentValidation.ValidationException)
             if (ex.GetType().FullName == "FluentValidation.ValidationException")
             {
                 var errors = new Dictionary<string, string[]>();
-                // Reflection-safe: spróbuj wyciągnąć Errors (IEnumerable<ValidationFailure>)
                 var errorsProp = ex.GetType().GetProperty("Errors");
                 var enumerable = errorsProp?.GetValue(ex) as System.Collections.IEnumerable;
                 if (enumerable is not null)
@@ -79,7 +75,6 @@ namespace CleanRestaurantApi.Errors
                 );
             }
 
-            // Nieznany wyjątek
             var detail = includeExceptionDetails ? ex.ToString() : "An unexpected error occurred.";
             return BuildProblemDetails(
                 ctx,

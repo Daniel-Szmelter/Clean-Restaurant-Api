@@ -1,18 +1,23 @@
 ﻿using CleanRestaurantApi.Models;
 using FluentValidation;
 
-namespace CleanRestaurantApi.Validators
+public class CreateDishDtoValidator : AbstractValidator<CreateDishDto>
 {
-    public class CreateDishDtoValidator : AbstractValidator<CreateDishDto>
+    public CreateDishDtoValidator()
     {
-        public CreateDishDtoValidator()
-        {
-            RuleFor(x => x.Name)
-                .NotEmpty().WithMessage("Dish name is required")
-                .MaximumLength(100);
+        RuleFor(x => x.Name)
+            .NotEmpty().WithMessage("Dish name is required")
+            .MaximumLength(50);
 
-            RuleFor(x => x.Price)
-                .GreaterThan(0).WithMessage("Price must be greater than 0");
-        }
+        RuleFor(x => x.Description)
+            .NotEmpty().WithMessage("Description is required")
+            .MaximumLength(100);
+
+        RuleFor(x => x.Price)
+            .GreaterThan(0).WithMessage("Price must be greater than 0")
+            .LessThan(1000).WithMessage("Price must be less than 1000");
+
+        RuleFor(x => x.CategoryName)
+            .NotEmpty().WithMessage("Category is required");
     }
 }

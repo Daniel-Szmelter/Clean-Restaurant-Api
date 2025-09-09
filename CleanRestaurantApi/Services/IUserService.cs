@@ -1,7 +1,5 @@
-﻿using CleanRestaurantApi.Entities;
-using CleanRestaurantApi.Models;
+﻿using CleanRestaurantApi.Models;
 using Microsoft.AspNetCore.JsonPatch;
-using System.Runtime.CompilerServices;
 
 namespace CleanRestaurantApi.Services
 {

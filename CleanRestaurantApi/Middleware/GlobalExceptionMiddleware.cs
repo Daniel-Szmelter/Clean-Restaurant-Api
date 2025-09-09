@@ -23,7 +23,6 @@ namespace CleanRestaurantApi.Middleware
             }
             catch (Exception ex)
             {
-                // Logujemy na poziomie zależnym od typu
                 if (ex is AppException appEx)
                     Log.Warning(ex, "Handled domain exception {Code} ({Status}) TraceId={TraceId}", appEx.Code, (int)appEx.StatusCode, context.TraceIdentifier);
                 else

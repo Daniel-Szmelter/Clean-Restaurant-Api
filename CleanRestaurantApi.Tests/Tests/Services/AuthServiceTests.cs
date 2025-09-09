@@ -6,11 +6,6 @@ using CleanRestaurantAPI.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Xunit;
 
 namespace CleanRestaurantApi.Tests.Services
 {
@@ -23,7 +18,6 @@ namespace CleanRestaurantApi.Tests.Services
         {
             _mockJwtService = new Mock<IJwtService>();
 
-            // Użycie InMemoryDatabase do testów
             _dbOptions = new DbContextOptionsBuilder<AppDbContext>()
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                 .Options;
@@ -63,14 +57,12 @@ namespace CleanRestaurantApi.Tests.Services
             using var context = new AppDbContext(options);
             var service = new AuthService(context, _mockJwtService.Object);
 
-            // Dodaj użytkownika do InMemory DB
             var user = new User { Email = "user@example.com" };
             var passwordHasher = new PasswordHasher<User>();
             user.PasswordHash = passwordHasher.HashPassword(user, "Password123!");
             context.User.Add(user);
             context.SaveChanges();
 
-            // Mock JWT
             _mockJwtService.Setup(j => j.GenerateAccessToken(user)).Returns("access-token");
             _mockJwtService.Setup(j => j.GenerateRefreshToken()).Returns("refresh-token");
 

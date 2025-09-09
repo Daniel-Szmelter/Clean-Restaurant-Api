@@ -3,12 +3,9 @@ using CleanRestaurantApi.Models;
 using CleanRestaurantApi.Models.Auth;
 using CleanRestaurantAPI.Data;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace CleanRestaurantApi.Services
 {

@@ -1,6 +1,4 @@
-﻿using CleanRestaurantApi.Data;
-
-namespace CleanRestaurantApi.Entities
+﻿namespace CleanRestaurantApi.Entities
 {
     public class Restaurant : AuditableEntity
     {

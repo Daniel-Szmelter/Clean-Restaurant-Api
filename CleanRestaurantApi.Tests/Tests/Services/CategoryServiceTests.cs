@@ -6,11 +6,6 @@ using CleanRestaurantAPI.Data;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Xunit;
 
 namespace CleanRestaurantApi.Tests.Services
 {

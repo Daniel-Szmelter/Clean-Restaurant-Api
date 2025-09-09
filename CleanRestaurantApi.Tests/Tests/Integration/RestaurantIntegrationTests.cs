@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using CleanRestaurantApi.Data;
 using CleanRestaurantApi.Entities;
 using CleanRestaurantApi.Mappings;
 using CleanRestaurantApi.Models;
@@ -7,22 +6,19 @@ using CleanRestaurantApi.Services;
 using CleanRestaurantAPI.Data;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
-using Xunit;
 
 namespace CleanRestaurantApi.Tests.Integration
 {
     public class RestaurantIntegrationTests
     {
-        // Metoda pomocnicza do tworzenia kontekstu i serwisu dla każdego testu
         private (AppDbContext, IRestaurantService) CreateTestContext()
         {
             var options = new DbContextOptionsBuilder<AppDbContext>()
-                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()) // unikalna baza
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                 .Options;
 
             var context = new AppDbContext(options);
 
-            // Seed przykładowych danych
             context.Restaurant.Add(new Restaurant
             {
                 Name = "Test Restaurant",
@@ -31,7 +27,6 @@ namespace CleanRestaurantApi.Tests.Integration
             });
             context.SaveChanges();
 
-            // Konfiguracja AutoMapper
             var mapperConfig = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<CategoryMappingProfile>();

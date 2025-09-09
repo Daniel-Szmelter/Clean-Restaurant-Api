@@ -1,13 +1,9 @@
-﻿using CleanRestaurantApi.Data;
-using CleanRestaurantApi.Entities;
+﻿using CleanRestaurantApi.Entities;
 using CleanRestaurantApi.Models;
 using CleanRestaurantApi.Models.Auth;
 using CleanRestaurantApi.Services;
 using CleanRestaurantAPI.Data;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Threading.Tasks;
-using Xunit;
 
 namespace CleanRestaurantApi.Tests.Integration
 {
@@ -21,14 +17,13 @@ namespace CleanRestaurantApi.Tests.Integration
 
             var context = new AppDbContext(options);
 
-            // Hashowanie prawidłowe dla testu
             var passwordHasher = new Microsoft.AspNetCore.Identity.PasswordHasher<User>();
             var user = new User
             {
                 Email = "existing@example.com",
                 Role = "User"
             };
-            user.PasswordHash = passwordHasher.HashPassword(user, "Password123!"); // prawidłowy hash
+            user.PasswordHash = passwordHasher.HashPassword(user, "Password123!");
             context.User.Add(user);
             context.SaveChanges();
 
@@ -62,7 +57,6 @@ namespace CleanRestaurantApi.Tests.Integration
         {
             var (context, authService) = CreateTestContext();
 
-            // Zaktualizuj hash hasła na prawdziwy do testu logowania
             var user = await context.User.FirstAsync(u => u.Email == "existing@example.com");
             var passwordHasher = new Microsoft.AspNetCore.Identity.PasswordHasher<User>();
             user.PasswordHash = passwordHasher.HashPassword(user, "Password123!");
@@ -112,7 +106,6 @@ namespace CleanRestaurantApi.Tests.Integration
         }
     }
 
-    // Prosty fake JWT service do testów
     public class FakeJwtService : IJwtService
     {
         public string GenerateAccessToken(User user) => "fake-access-token";

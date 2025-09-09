@@ -35,7 +35,7 @@ namespace CleanRestaurantApi.Controllers
         public async Task<ActionResult> Create([FromBody] CreateCategoryDto dto)
         {
             await _categoryService.CreateAsync(dto);
-            return Ok(new MessageResponseDto{ Message = "Category created successfully"});
+            return Ok(new MessageResponseDto { Message = "Category created successfully" });
         }
 
         [HttpPatch("{id}")]

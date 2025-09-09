@@ -1,9 +1,6 @@
-﻿using CleanRestaurantApi.Data;
-using CleanRestaurantApi.Entities;
+﻿using CleanRestaurantApi.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
-using System.Linq.Expressions;
-using System.Security.Claims;
 
 namespace CleanRestaurantAPI.Data
 {

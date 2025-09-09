@@ -1,9 +1,7 @@
 ﻿using CleanRestaurantApi.Entities;
-using CleanRestaurantApi.Models;
 using CleanRestaurantApi.Models.Auth;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -20,7 +18,6 @@ namespace CleanRestaurantApi.Services
             _jwtSettings = options.Value;
         }
 
-        // Generowanie access tokena dla użytkownika
         public string GenerateAccessToken(User user)
         {
             var key = Encoding.UTF8.GetBytes(_jwtSettings.Key);
@@ -32,7 +29,7 @@ namespace CleanRestaurantApi.Services
     };
 
             var now = DateTime.UtcNow;
-            var expires = now.AddMinutes(_jwtSettings.AccessTokenExpirationMinutes).AddSeconds(1); // minimalna różnica
+            var expires = now.AddMinutes(_jwtSettings.AccessTokenExpirationMinutes).AddSeconds(1);
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
@@ -59,14 +56,13 @@ namespace CleanRestaurantApi.Services
             }
         }
 
-        // Odczyt principal z wygasłego tokena
         public ClaimsPrincipal GetPrincipalFromExpiredToken(string token)
         {
             var tokenValidationParameters = new TokenValidationParameters
             {
                 ValidateIssuer = false,
                 ValidateAudience = false,
-                ValidateLifetime = false, // ignorujemy wygaśnięcie tokena
+                ValidateLifetime = false,
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key))
             };
@@ -74,7 +70,6 @@ namespace CleanRestaurantApi.Services
             var tokenHandler = new JwtSecurityTokenHandler();
             var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out _);
 
-            // Tworzymy nowy ClaimsIdentity, żeby Identity.Name działało
             var identity = new ClaimsIdentity(principal.Claims, "jwt", ClaimTypes.Email, ClaimTypes.Role);
             return new ClaimsPrincipal(identity);
         }

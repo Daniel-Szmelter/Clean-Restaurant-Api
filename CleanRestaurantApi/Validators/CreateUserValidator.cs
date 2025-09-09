@@ -1,7 +1,6 @@
 ﻿using CleanRestaurantApi.Models;
 using CleanRestaurantAPI.Data;
 using FluentValidation;
-using Microsoft.EntityFrameworkCore;
 
 namespace CleanRestaurantApi.Validators
 {

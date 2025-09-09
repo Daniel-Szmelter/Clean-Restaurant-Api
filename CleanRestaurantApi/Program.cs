@@ -1,9 +1,7 @@
 using CleanRestaurantApi.Data;
 using CleanRestaurantApi.Entities;
-using CleanRestaurantApi.Extensions;
 using CleanRestaurantApi.Mappings;
 using CleanRestaurantApi.Middleware;
-using CleanRestaurantApi.Models;
 using CleanRestaurantApi.Models.Auth;
 using CleanRestaurantApi.Services;
 using CleanRestaurantApi.Validators;
@@ -59,7 +57,6 @@ namespace CleanRestaurantApi
             builder.Services.AddControllers()
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Program>());
 
-            // Rejestracja JwtSettings w DI
             var jwtSettings = configuration.GetSection("Jwt").Get<JwtSettings>();
             builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
             builder.Services.AddSingleton<IJwtService, JwtService>();
@@ -133,7 +130,6 @@ namespace CleanRestaurantApi
             app.UseMiddleware<RequestLoggingMiddleware>();
             app.UseMiddleware<ErrorHandlingMiddleware>();
             app.UseSerilogRequestLogging();
-            app.UseGlobalExceptionHandling();
 
             app.UseHttpsRedirection();
             app.UseCors("AllowAngular");

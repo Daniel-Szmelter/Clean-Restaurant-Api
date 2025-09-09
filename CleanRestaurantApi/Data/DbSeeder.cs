@@ -2,9 +2,6 @@
 using CleanRestaurantAPI.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace CleanRestaurantApi.Data
 {
@@ -53,7 +50,6 @@ namespace CleanRestaurantApi.Data
                         }
                     },
 
-                    // 2. Bella Italia
                     new Restaurant
                     {
                         Name = "Bella Italia",
@@ -74,7 +70,6 @@ namespace CleanRestaurantApi.Data
                         }
                     },
 
-                    // 3. Lakeside Lounge
                     new Restaurant
                     {
                         Name = "Lakeside Lounge",
@@ -95,7 +90,6 @@ namespace CleanRestaurantApi.Data
                         }
                     },
 
-                    // 4. Napoli Express
                     new Restaurant
                     {
                         Name = "Napoli Express",
@@ -116,7 +110,6 @@ namespace CleanRestaurantApi.Data
                         }
                     },
 
-                    // 5. Trattoria Venezia
                     new Restaurant
                     {
                         Name = "Trattoria Venezia",
@@ -137,7 +130,6 @@ namespace CleanRestaurantApi.Data
                         }
                     },
 
-                    // 6. New York Slice
                     new Restaurant
                     {
                         Name = "New York Slice",
@@ -158,7 +150,6 @@ namespace CleanRestaurantApi.Data
                         }
                     },
 
-                    // 7. Tokyo Fusion
                     new Restaurant
                     {
                         Name = "Tokyo Fusion",
@@ -179,7 +170,6 @@ namespace CleanRestaurantApi.Data
                         }
                     },
 
-                    // 8. Paris Bistro
                     new Restaurant
                     {
                         Name = "Paris Bistro",
@@ -200,7 +190,6 @@ namespace CleanRestaurantApi.Data
                         }
                     },
 
-                    // 9. Berlin Street Food
                     new Restaurant
                     {
                         Name = "Berlin Street Food",

@@ -1,6 +1,4 @@
-﻿using CleanRestaurantApi.Entities;
-
-namespace CleanRestaurantApi.Models
+﻿namespace CleanRestaurantApi.Models
 {
     public class CreateCategoryDto
     {
