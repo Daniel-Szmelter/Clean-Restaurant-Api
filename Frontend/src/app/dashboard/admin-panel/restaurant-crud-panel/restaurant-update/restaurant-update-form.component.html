@@ -1,0 +1,178 @@
+<div class="page-wrapper" [class.dark]="isDarkMode">
+  <header class="page-header">
+    <div class="logo">Update Restaurant</div>
+
+    <nav class="nav-links">
+
+      <span class="user-info"> Logged in as {{ userEmail }} (role: {{ role }}) </span>
+
+
+      <button class="nav-btn" (click)="goBack()">⬅ Back</button>
+
+
+      <button class="nav-btn" (click)="logout()">🔒 Log out</button>
+
+
+      <div class="theme-switch" (click)="toggleTheme()">
+        <div class="switch-track">
+          <div class="switch-ball" [class.dark]="isDarkMode">
+            <span class="sun">☀️</span>
+            <span class="moon">🌙</span>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <div class="page-content">
+    <div class="cards-wrapper" *ngIf="!loading && !errorMessage">
+      <div class="restaurant-card">
+        <form [formGroup]="restaurantForm" (ngSubmit)="submit()">
+
+          <label>
+            Name:
+            <input type="text" formControlName="name" />
+            <div class="error-container">
+              <span
+                *ngIf="
+                  restaurantForm.get('name')?.hasError('required') &&
+                  restaurantForm.get('name')?.touched
+                "
+              >
+                Required
+              </span>
+              <span *ngIf="restaurantForm.get('name')?.hasError('maxlength')">
+                Max 50 characters
+              </span>
+            </div>
+          </label>
+
+
+          <label>
+            City:
+            <input type="text" formControlName="city" />
+            <div class="error-container">
+              <span
+                *ngIf="
+                  restaurantForm.get('city')?.hasError('required') &&
+                  restaurantForm.get('city')?.touched
+                "
+              >
+                Required
+              </span>
+              <span *ngIf="restaurantForm.get('city')?.hasError('maxlength')">
+                Max 50 characters
+              </span>
+            </div>
+          </label>
+
+
+          <label>
+            Street:
+            <input type="text" formControlName="street" />
+            <div class="error-container">
+              <span
+                *ngIf="
+                  restaurantForm.get('street')?.hasError('required') &&
+                  restaurantForm.get('street')?.touched
+                "
+              >
+                Required
+              </span>
+              <span *ngIf="restaurantForm.get('street')?.hasError('maxlength')">
+                Max 50 characters
+              </span>
+            </div>
+          </label>
+
+
+          <div formArrayName="dishes">
+            <div
+              *ngFor="let dish of dishes.controls; let i = index"
+              [formGroupName]="i"
+              class="dish-form"
+            >
+
+              <label>
+                Dish Name:
+                <input type="text" formControlName="name" />
+                <div class="error-container">
+                  <span *ngIf="dish.get('name')?.hasError('required') && dish.get('name')?.touched">
+                    Required
+                  </span>
+                  <span *ngIf="dish.get('name')?.hasError('maxlength')"> Max 50 characters </span>
+                </div>
+              </label>
+
+
+              <label>
+                Price:
+                <input type="number" formControlName="price" />
+                <div class="error-container">
+                  <span
+                    *ngIf="dish.get('price')?.hasError('required') && dish.get('price')?.touched"
+                  >
+                    Required
+                  </span>
+                  <span *ngIf="dish.get('price')?.hasError('max')"> Max 1000 </span>
+                </div>
+              </label>
+
+
+              <label>
+                Category:
+                <select formControlName="categoryId">
+                  <option [ngValue]="null" disabled hidden>-- Select Category --</option>
+                  <option *ngFor="let c of categories" [ngValue]="c.id">{{ c.name }}</option>
+                </select>
+                <div class="error-container">
+                  <span
+                    *ngIf="
+                      dish.get('categoryId')?.hasError('required') &&
+                      dish.get('categoryId')?.touched
+                    "
+                  >
+                    Required
+                  </span>
+                </div>
+              </label>
+
+
+              <label>
+                Description:
+                <input type="text" formControlName="description" />
+                <div class="error-container">
+                  <span
+                    *ngIf="
+                      dish.get('description')?.hasError('required') &&
+                      dish.get('description')?.touched
+                    "
+                  >
+                    Required
+                  </span>
+                  <span *ngIf="dish.get('description')?.hasError('maxlength')">
+                    Max 50 characters
+                  </span>
+                </div>
+              </label>
+
+              <button type="button" class="remove-dish-btn" (click)="removeDish(i)">
+                Remove Dish
+              </button>
+            </div>
+          </div>
+
+          <button type="button" class="add-dish-btn" (click)="addDish()">Add Dish</button>
+
+          <div class="save-btn-wrapper">
+            <button type="submit" class="update-btn">Save Changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" [class.show]="showToast">{{ toastMessage }}</div>
+
+  <footer class="page-footer">&copy; 2025 Daniel Szmelter</footer>
+</div>

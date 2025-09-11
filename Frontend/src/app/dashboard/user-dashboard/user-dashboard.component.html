@@ -1,0 +1,57 @@
+<div class="page-wrapper" [class.dark]="isDarkMode">
+  <header class="page-header">
+    <div class="logo">Clean Restaurant API</div>
+    <nav class="nav-links">
+      <span class="user-info"> Logged in as {{ userEmail }} (role: {{ role }}) </span>
+      <button class="nav-btn" (click)="logout()">🔒 Log out</button>
+      <div class="theme-switch" (click)="toggleTheme()">
+        <div class="switch-track">
+          <div class="switch-ball" [class.dark]="isDarkMode">
+            <span class="sun">☀️</span>
+            <span class="moon">🌙</span>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <div class="page-content">
+    <div *ngIf="loading">Loading restaurants...</div>
+    <div *ngIf="errorMessage">{{ errorMessage }}</div>
+
+    <ng-container *ngIf="!loading && !errorMessage">
+      <div class="cards-wrapper">
+        <ng-container *ngFor="let r of pagedRestaurants">
+          <div class="restaurant-card">
+            <h3>{{ r.name }}</h3>
+            <p *ngIf="r.city || r.street">{{ r.city }}, {{ r.street }}</p>
+
+            <ul>
+              <li *ngFor="let d of r.dishes">
+                <div class="dish-info">
+                  <span class="dish-icon">{{ getDishIcon(d.categoryName) }}</span>
+                  <div class="dish-text">
+                    <span class="dish-name">{{ d.name }}</span>
+                    <p class="dish-desc" *ngIf="d.description">{{ d.description }}</p>
+                  </div>
+                </div>
+                <span class="price">${{ d.price }}</span>
+              </li>
+            </ul>
+          </div>
+        </ng-container>
+      </div>
+
+
+      <div class="pagination-wrapper">
+        <div class="pagination">
+          <button (click)="prevPage()" [disabled]="currentPage === 1">◀ Prev</button>
+          <span>Page {{ currentPage }} / {{ maxPage }}</span>
+          <button (click)="nextPage()" [disabled]="currentPage >= maxPage">Next ▶</button>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <footer class="page-footer">&copy; 2025 Daniel Szmelter</footer>
+</div>

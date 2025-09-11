@@ -1,0 +1,48 @@
+<div class="page-wrapper" [class.dark]="isDarkMode">
+  <header class="page-header">
+    <div class="header-left">
+      <div class="logo">Create Category</div>
+    </div>
+
+    <div class="header-right">
+      <span class="user-info"> Logged in as {{ userEmail }} (role: {{ role }}) </span>
+
+      <nav class="nav-links">
+        <button class="nav-btn" (click)="goBack()">⬅ Back</button>
+        <button class="nav-btn" (click)="logout()">🔒 Log out</button>
+        <div class="theme-switch" (click)="toggleTheme()">
+          <div class="switch-track">
+            <div class="switch-ball" [class.dark]="isDarkMode">
+              <span class="sun">☀️</span>
+              <span class="moon">🌙</span>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="page-content create-form">
+    <form *ngIf="categoryForm" [formGroup]="categoryForm" (ngSubmit)="submit()">
+      <div class="form-group">
+        <label for="name">Category Name</label>
+        <input id="name" formControlName="name" type="text" placeholder="Category name" />
+        <small class="error-placeholder">
+          <span
+            class="error"
+            *ngIf="categoryForm.get('name')?.touched && categoryForm.get('name')?.invalid"
+          >
+            <span *ngIf="categoryForm.get('name')?.errors?.['required']">Required</span>
+            <span *ngIf="categoryForm.get('name')?.errors?.['maxlength']">Max 50 characters</span>
+          </span>
+        </small>
+      </div>
+
+      <button type="submit">Create Category</button>
+    </form>
+  </div>
+
+  <div class="toast" [class.show]="showToast">{{ toastMessage }}</div>
+
+  <footer class="page-footer">&copy; 2025 Daniel Szmelter</footer>
+</div>

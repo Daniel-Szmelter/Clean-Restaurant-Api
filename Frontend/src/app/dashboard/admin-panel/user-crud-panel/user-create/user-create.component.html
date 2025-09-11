@@ -1,0 +1,124 @@
+<div class="page-wrapper" [class.dark]="isDarkMode">
+  <header class="page-header">
+    <div class="header-left">
+      <div class="logo">Create User</div>
+    </div>
+
+    <div class="header-right">
+      <span class="user-info"> Logged in as {{ userEmail }} (role: {{ role }}) </span>
+
+      <nav class="nav-links">
+        <button class="nav-btn" (click)="goBack()">⬅ Back</button>
+        <button class="nav-btn" (click)="logout()">🔒 Log out</button>
+        <div class="theme-switch" (click)="toggleTheme()">
+          <div class="switch-track">
+            <div class="switch-ball" [class.dark]="isDarkMode">
+              <span class="sun">☀️</span>
+              <span class="moon">🌙</span>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="page-content create-form">
+    <form *ngIf="userForm" [formGroup]="userForm" (ngSubmit)="submit()">
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" formControlName="email" type="email" placeholder="User email" />
+        <small class="error-placeholder">
+          <span
+            class="error"
+            *ngIf="
+              userForm.get('email')?.invalid &&
+              (userForm.get('email')?.touched || userForm.get('email')?.dirty)
+            "
+          >
+            <span *ngIf="userForm.get('email')?.errors?.['required']">Required</span>
+            <span *ngIf="userForm.get('email')?.errors?.['email']">Invalid email</span>
+            <span *ngIf="userForm.get('email')?.errors?.['emailExists']"
+              >User with this email already exists</span
+            >
+          </span>
+          <span *ngIf="userForm.get('email')?.pending">Checking email...</span>
+        </small>
+      </div>
+
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          formControlName="password"
+          type="password"
+          placeholder="User password"
+        />
+        <small class="error-placeholder">
+          <span
+            class="error"
+            *ngIf="userForm.get('password')?.touched && userForm.get('password')?.invalid"
+          >
+            <span *ngIf="userForm.get('password')?.errors?.['required']">Required</span>
+            <span *ngIf="userForm.get('password')?.errors?.['maxlength']">Max 50 characters</span>
+            <span *ngIf="userForm.get('password')?.errors?.['minlength']">Min 6 characters</span>
+          </span>
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input
+          id="confirmPassword"
+          formControlName="confirmPassword"
+          type="password"
+          placeholder="Confirm password"
+        />
+        <small class="error-placeholder">
+          <span
+            class="error"
+            *ngIf="
+              userForm.get('confirmPassword')?.touched && userForm.get('confirmPassword')?.invalid
+            "
+          >
+            <span *ngIf="userForm.get('confirmPassword')?.errors?.['required']">Required</span>
+            <span *ngIf="userForm.get('confirmPassword')?.errors?.['mismatch']"
+              >Passwords do not match</span
+            >
+            <span *ngIf="userForm.get('confirmPassword')?.errors?.['maxlength']"
+              >Max 50 characters</span
+            >
+            <span *ngIf="userForm.get('confirmPassword')?.errors?.['minlength']"
+              >Min 6 characters</span
+            >
+          </span>
+        </small>
+      </div>
+
+
+      <div class="form-group">
+        <label for="role">Role</label>
+        <select id="role" formControlName="role" class="select-placeholder">
+          <option [ngValue]="null" disabled hidden>Select role</option>
+          <option value="Admin">Admin</option>
+          <option value="Manager">Manager</option>
+          <option value="User">User</option>
+        </select>
+        <small class="error-placeholder">
+          <span
+            class="error"
+            *ngIf="userForm.get('role')?.touched && userForm.get('role')?.invalid"
+          >
+            Required
+          </span>
+        </small>
+      </div>
+
+      <button type="submit">Create User</button>
+    </form>
+  </div>
+
+  <div class="toast" [class.show]="showToast">{{ toastMessage }}</div>
+  <footer class="page-footer">&copy; 2025 Daniel Szmelter</footer>
+</div>

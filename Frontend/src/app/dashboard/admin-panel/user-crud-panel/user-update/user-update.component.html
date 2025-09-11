@@ -1,0 +1,54 @@
+<div class="page-wrapper" [class.dark]="isDarkMode">
+  <header class="page-header">
+    <div class="header-left">
+      <div class="logo">Update User</div>
+    </div>
+
+    <div class="header-right">
+      <nav class="nav-links">
+        <div class="theme-switch" (click)="toggleTheme()">
+          <div class="switch-track">
+            <div class="switch-ball" [class.dark]="isDarkMode">
+              <span class="sun">☀️</span>
+              <span class="moon">🌙</span>
+            </div>
+          </div>
+        </div>
+        <button class="nav-btn" (click)="goBack()">⬅ Back</button>
+        <button class="nav-btn" (click)="logout()">🔒 Log out</button>
+      </nav>
+      <span class="user-info"> Logged in as {{ userEmail }} (role: {{ role }}) </span>
+    </div>
+  </header>
+
+  <div class="page-content">
+    <div *ngIf="loading">Loading users...</div>
+    <div *ngIf="errorMessage">{{ errorMessage }}</div>
+
+    <ng-container *ngIf="!loading && !errorMessage">
+      <div class="cards-wrapper" #cardsWrapper>
+        <ng-container *ngFor="let u of pagedUsers">
+          <div class="user-card">
+            <div class="user-info-card">
+              <span><strong>Email:</strong> {{ u.email }}</span>
+              <span><strong>Role:</strong> {{ u.role }}</span>
+            </div>
+            <div class="update-wrapper-horizontal">
+              <button class="update-btn" (click)="updateUser(u.id)">✏️ Update</button>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+
+      <div class="pagination-wrapper">
+        <div class="pagination">
+          <button (click)="prevPage()" [disabled]="currentPage === 1">◀ Prev</button>
+          <span>Page {{ currentPage }} / {{ maxPage }}</span>
+          <button (click)="nextPage()" [disabled]="currentPage >= maxPage">Next ▶</button>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <footer class="page-footer">&copy; 2025 Daniel Szmelter</footer>
+</div>

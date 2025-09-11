@@ -1,0 +1,50 @@
+<div class="page-wrapper" [class.dark]="isDarkMode">
+  <header class="page-header">
+    <div class="logo">Clean Restaurant API</div>
+    <nav class="nav-links">
+      <button class="nav-btn" (click)="goToHome()">🏠 Home</button>
+
+      <button class="nav-btn" (click)="goToLogin()">🔒 Sign in</button>
+
+      <div class="theme-switch" (click)="toggleTheme()">
+        <div class="switch-track">
+          <div class="switch-ball" [class.dark]="isDarkMode">
+            <span class="sun">☀️</span>
+            <span class="moon">🌙</span>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <div class="page-content">
+    <div class="register-card">
+      <div class="header">
+        <div class="icon" [class.shake]="shake">🔑</div>
+        <h2>Create Account</h2>
+        <p>Please fill in the details to register</p>
+      </div>
+
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <label
+          >Email
+          <input formControlName="email" placeholder="Enter your email" />
+        </label>
+        <label
+          >Password
+          <input type="password" formControlName="password" placeholder="Enter your password" />
+        </label>
+        <label
+          >Confirm Password
+          <input type="password" formControlName="confirmPassword" placeholder="Confirm password" />
+        </label>
+
+        <button type="submit">Register</button>
+
+        <p class="login-error" [class.show]="registerError">{{ errorMessage }}</p>
+      </form>
+    </div>
+  </div>
+
+  <footer class="page-footer">&copy; 2025 Daniel Szmelter</footer>
+</div>

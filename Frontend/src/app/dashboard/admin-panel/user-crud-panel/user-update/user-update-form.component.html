@@ -1,0 +1,101 @@
+<div class="page-wrapper" [class.dark]="isDarkMode">
+  <header class="page-header">
+    <div class="logo">Update User</div>
+
+    <nav class="nav-links">
+      <span class="user-info"> Logged in as {{ userEmail }} (role: {{ role }}) </span>
+      <button class="nav-btn" (click)="goBack()">⬅ Back</button>
+      <button class="nav-btn" (click)="logout()">🔒 Log out</button>
+      <div class="theme-switch" (click)="toggleTheme()">
+        <div class="switch-track">
+          <div class="switch-ball" [class.dark]="isDarkMode">
+            <span class="sun">☀️</span>
+            <span class="moon">🌙</span>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <div class="page-content">
+    <div class="cards-wrapper" *ngIf="!loading && !errorMessage">
+      <div class="user-card">
+        <form [formGroup]="userForm" (ngSubmit)="submit()">
+
+          <label>
+            Email
+            <input type="email" formControlName="email" readonly />
+          </label>
+
+          <label>
+            New Password
+            <input type="password" formControlName="password" />
+            <div class="error-container">
+              <span
+                *ngIf="
+                  userForm.get('password')?.errors?.['maxlength'] &&
+                  userForm.get('password')?.touched
+                "
+              >
+                Max 20 characters
+              </span>
+              <span
+                *ngIf="
+                  userForm.get('password')?.errors?.['minlength'] &&
+                  userForm.get('password')?.touched
+                "
+              >
+                Min 6 characters
+              </span>
+            </div>
+          </label>
+
+          <label>
+            Confirm Password
+            <input type="password" formControlName="confirmPassword" />
+            <div class="error-container">
+              <span
+                *ngIf="
+                  userForm.get('confirmPassword')?.hasError('required') &&
+                  userForm.get('confirmPassword')?.touched
+                "
+              >
+                Required
+              </span>
+              <span
+                *ngIf="
+                  userForm.hasError('passwordMismatch') && userForm.get('confirmPassword')?.touched
+                "
+              >
+                Passwords do not match
+              </span>
+            </div>
+          </label>
+
+          <label>
+            Role
+            <select formControlName="role">
+              <option value="" disabled hidden>-- Select Role --</option>
+              <option *ngFor="let r of roles" [value]="r">{{ r }}</option>
+            </select>
+            <div class="error-container">
+              <span
+                *ngIf="userForm.get('role')?.hasError('required') && userForm.get('role')?.touched"
+              >
+                Required
+              </span>
+            </div>
+          </label>
+
+          <div class="save-btn-wrapper">
+            <button type="submit" class="update-btn">Save Changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" [class.show]="showToast">{{ toastMessage }}</div>
+
+  <footer class="page-footer">&copy; 2025 Daniel Szmelter</footer>
+</div>

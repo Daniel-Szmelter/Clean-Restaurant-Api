@@ -1,0 +1,49 @@
+<div class="page-wrapper" [class.dark]="isDarkMode">
+  <header class="page-header">
+    <div class="logo">Update Category</div>
+    <nav class="nav-links">
+      <span class="user-info">Logged in as {{ userEmail }} (role: {{ role }})</span>
+      <button class="nav-btn" (click)="goBack()">⬅ Back</button>
+      <button class="nav-btn" (click)="logout()">🔒 Log out</button>
+      <div class="theme-switch" (click)="toggleTheme()">
+        <div class="switch-track">
+          <div class="switch-ball" [class.dark]="isDarkMode">
+            <span class="sun">☀️</span>
+            <span class="moon">🌙</span>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="page-content">
+    <div class="cards-wrapper" *ngIf="!loading && !errorMessage">
+      <div class="category-card">
+        <form [formGroup]="categoryForm" (ngSubmit)="submit()">
+          <label>
+            Name:
+            <input type="text" formControlName="name" />
+            <div class="error-container">
+              <span
+                *ngIf="
+                  categoryForm.get('name')?.hasError('required') &&
+                  categoryForm.get('name')?.touched
+                "
+                >Required</span
+              >
+              <span *ngIf="categoryForm.get('name')?.hasError('maxlength')">Max 50 characters</span>
+            </div>
+          </label>
+
+          <div class="save-btn-wrapper">
+            <button type="submit" class="update-btn">Save Changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="toast" [class.show]="showToast">{{ toastMessage }}</div>
+  </main>
+
+  <footer class="page-footer">&copy; 2025 Daniel Szmelter</footer>
+</div>

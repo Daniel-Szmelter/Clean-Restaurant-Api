@@ -1,0 +1,247 @@
+
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #f9f9f9;
+  color: #000;
+  transition:
+    background 0.5s,
+    color 0.5s;
+}
+.page-wrapper.dark {
+  background: #141e30;
+  color: #f0f0f0;
+}
+
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
+  padding: 1rem 2rem;
+  min-height: 60px; 
+  background: linear-gradient(90deg, #4facfe, #00f2fe);
+  color: white;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition:
+    background 1s ease,
+    color 0.5s;
+}
+
+.header-left,
+.header-right {
+  display: flex;
+  align-items: center; 
+  gap: 0.5rem;
+}
+.page-wrapper.dark .page-header {
+  background: linear-gradient(90deg, #141e30, #243b55);
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem; 
+}
+.nav-btn {
+  background: transparent;
+  border: 1px solid white;
+  border-radius: 6px;
+  padding: 0.3rem 0.7rem;
+  color: white;
+  cursor: pointer;
+  transition:
+    background 0.5s,
+    color 0.5s,
+    border-color 0.5s;
+  padding: 0.45rem 0.9rem;
+  font-size: 1rem;
+}
+.nav-btn:hover {
+  background: white;
+  color: #4facfe;
+}
+
+.theme-switch {
+  width: 60px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+.switch-track {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.3);
+  position: relative;
+  transition: background 0.3s;
+  display: flex;
+  align-items: center;
+  padding: 2px;
+}
+.switch-ball {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #fff;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: left 0.5s ease;
+  font-size: 16px;
+}
+.switch-ball.dark {
+  left: 32px;
+}
+.switch-ball .sun,
+.switch-ball .moon {
+  position: absolute;
+  transition:
+    transform 0.5s ease,
+    opacity 0.5s ease;
+}
+.switch-ball .sun {
+  transform: translateX(0);
+  opacity: 1;
+}
+.switch-ball.dark .sun {
+  transform: translateX(-50%);
+  opacity: 0;
+}
+.switch-ball .moon {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+.switch-ball.dark .moon {
+  transform: translateX(0);
+  opacity: 1;
+}
+.theme-switch:hover .switch-track {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+
+.page-content {
+  flex: 1; 
+  display: flex;
+  flex-direction: column; 
+  gap: 2rem; 
+  padding: 2rem;
+}
+
+@media (max-width: 1200px) {
+  .page-content {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-content {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto;
+  }
+}
+
+.dashboard-cards {
+  display: flex;
+  flex-direction: column;
+  flex: 1; 
+  gap: 2rem;
+}
+.card {
+  flex: 1;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  transition:
+    background 0.5s,
+    color 0.5s,
+    transform 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor: pointer;
+}
+.page-wrapper.dark .card {
+  background: #1f2a40;
+  color: #f0f0f0;
+}
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+.card h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+}
+.card button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  background: linear-gradient(to right, #4facfe, #00f2fe);
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.card button:hover {
+  background: linear-gradient(to right, #3b8efc, #00d8fe);
+}
+
+.card.disabled-card {
+  opacity: 0.5;
+  pointer-events: none; 
+}
+.card.disabled-card button {
+  cursor: not-allowed;
+  background: gray;
+}
+
+.page-footer {
+  width: 100%;
+  padding: 1rem 2rem;
+  text-align: center;
+  font-size: 0.95rem;
+  color: #555;
+  background: #f1f1f1;
+  border-top: 1px solid #ddd;
+  transition:
+    background 0.5s,
+    color 0.5s,
+    border-color 0.5s;
+}
+.page-wrapper.dark .page-footer {
+  background: #1f2a40;
+  color: #ccc;
+  border-top: 1px solid #444;
+}
+.page-footer a {
+  color: #4facfe;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.5s;
+}
+
+.user-info {
+  color: white;
+  margin-right: 1rem;
+  font-weight: 500;
+}
+.page-wrapper.dark .user-info {
+  color: #ccc;
+}

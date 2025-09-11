@@ -1,0 +1,146 @@
+<div class="page-wrapper" [class.dark]="isDarkMode">
+  <header class="page-header">
+    <div class="header-left">
+      <div class="logo">Create Restaurant</div>
+    </div>
+
+    <div class="header-right">
+      <span class="user-info"> Logged in as {{ userEmail }} (role: {{ role }}) </span>
+
+      <nav class="nav-links">
+        <button class="nav-btn" (click)="goBack()">⬅ Back</button>
+        <button class="nav-btn" (click)="logout()">🔒 Log out</button>
+        <div class="theme-switch" (click)="toggleTheme()">
+          <div class="switch-track">
+            <div class="switch-ball" [class.dark]="isDarkMode">
+              <span class="sun">☀️</span>
+              <span class="moon">🌙</span>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="page-content create-form">
+    <form *ngIf="restaurantForm" [formGroup]="restaurantForm" (ngSubmit)="submit()">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input id="name" formControlName="name" type="text" placeholder="Restaurant name" />
+        <small class="error-placeholder">
+          <span
+            class="error"
+            *ngIf="restaurantForm.get('name')?.touched && restaurantForm.get('name')?.invalid"
+          >
+            <span *ngIf="restaurantForm.get('name')?.errors?.['required']">Required</span>
+            <span *ngIf="restaurantForm.get('name')?.errors?.['maxlength']">Max 50 characters</span>
+          </span>
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label for="city">City</label>
+        <input id="city" formControlName="city" type="text" placeholder="City" />
+        <small class="error-placeholder">
+          <span
+            class="error"
+            *ngIf="restaurantForm.get('city')?.touched && restaurantForm.get('city')?.invalid"
+          >
+            <span *ngIf="restaurantForm.get('city')?.errors?.['required']">Required</span>
+            <span *ngIf="restaurantForm.get('city')?.errors?.['maxlength']">Max 50 characters</span>
+          </span>
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label for="street">Street</label>
+        <input id="street" formControlName="street" type="text" placeholder="Street" />
+        <small class="error-placeholder">
+          <span
+            class="error"
+            *ngIf="restaurantForm.get('street')?.touched && restaurantForm.get('street')?.invalid"
+          >
+            <span *ngIf="restaurantForm.get('street')?.errors?.['required']">Required</span>
+            <span *ngIf="restaurantForm.get('street')?.errors?.['maxlength']"
+              >Max 50 characters</span
+            >
+          </span>
+        </small>
+      </div>
+
+      <div formArrayName="dishes" class="dishes-section">
+  <h4>Dishes</h4>
+  <button type="button" class="add-dish-btn" (click)="addDish()">+ Add Dish</button>
+
+  <div
+    *ngFor="let dish of dishes.controls; let i = index"
+    [formGroupName]="i"
+    class="dish-item"
+  >
+    <div class="dish-field">
+      <input formControlName="name" placeholder="Dish name" />
+      <small class="error-placeholder">
+        <span class="error" *ngIf="dish.get('name')?.touched && dish.get('name')?.invalid">
+          <span *ngIf="dish.get('name')?.errors?.['required']">Required</span>
+          <span *ngIf="dish.get('name')?.errors?.['maxlength']">Max 50 characters</span>
+        </span>
+      </small>
+    </div>
+
+    <div class="dish-field">
+      <input
+        formControlName="price"
+        type="number"
+        placeholder="Price"
+        min="0.01"
+        step="0.01"
+      />
+      <small class="error-placeholder">
+        <span class="error" *ngIf="dish.get('price')?.touched && dish.get('price')?.invalid">
+          <span *ngIf="dish.get('price')?.errors?.['required']">Required</span>
+          <span *ngIf="dish.get('price')?.errors?.['min']">Must be > 0</span>
+          <span *ngIf="dish.get('price')?.errors?.['max']">Max 1000</span>
+        </span>
+      </small>
+    </div>
+
+    <div class="dish-field">
+      <input formControlName="description" placeholder="Description" />
+      <small class="error-placeholder">
+        <span
+          class="error"
+          *ngIf="dish.get('description')?.touched && dish.get('description')?.invalid"
+        >
+          <span *ngIf="dish.get('description')?.errors?.['required']">Required</span>
+          <span *ngIf="dish.get('description')?.errors?.['maxlength']">Max 100 characters</span>
+        </span>
+      </small>
+    </div>
+
+    <div class="dish-field">
+      <select formControlName="categoryName" class="select-placeholder">
+        <option value="" disabled hidden>Select category</option>
+        <option *ngFor="let c of categories" [value]="c.name">{{ c.name }}</option>
+      </select>
+      <small class="error-placeholder">
+        <span
+          class="error"
+          *ngIf="dish.get('categoryName')?.touched && dish.get('categoryName')?.invalid"
+        >
+          <span *ngIf="dish.get('categoryName')?.errors?.['required']">Required</span>
+        </span>
+      </small>
+    </div>
+
+    <button type="button" class="remove-dish-btn" (click)="removeDish(i)">Remove dish</button>
+  </div>
+</div>
+
+
+      <button type="submit">Create Restaurant</button>
+    </form>
+  </div>
+  <div class="toast" [class.show]="showToast">{{ toastMessage }}</div>
+
+  <footer class="page-footer">&copy; 2025 Daniel Szmelter</footer>
+</div>
