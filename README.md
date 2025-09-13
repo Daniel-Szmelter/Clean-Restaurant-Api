@@ -1,6 +1,6 @@
 # Clean Restaurant Api
 
-A full-stack web application for managing restaurant operations - built with .NET (backend) and Angular (frontend). The project demonstrates clean architecture principles, JWT-based authentication, role-based access control, unit and integration tests, and a deployable API + SPA structure.
+A fullstack web application for managing restaurant operations - built with .NET (backend) and Angular (frontend). The project demonstrates clean architecture principles, JWT-based authentication, role-based access control, unit and integration tests, and a deployable API + SPA structure.
 
 ---
 
