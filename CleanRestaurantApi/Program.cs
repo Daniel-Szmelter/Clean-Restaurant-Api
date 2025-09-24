@@ -2,6 +2,7 @@ using CleanRestaurantApi.Data;
 using CleanRestaurantApi.Entities;
 using CleanRestaurantApi.Mappings;
 using CleanRestaurantApi.Middleware;
+using CleanRestaurantApi.Models;
 using CleanRestaurantApi.Models.Auth;
 using CleanRestaurantApi.Services;
 using CleanRestaurantApi.Validators;
@@ -89,9 +90,6 @@ namespace CleanRestaurantApi
             {
                 options.AddPolicy("RequireAdminRole", policy =>
                     policy.RequireRole("Admin"));
-
-                options.AddPolicy("RequirePremiumUser", policy =>
-                    policy.RequireClaim("Subscription", "Premium"));
             });
 
             builder.Services.AddHsts(options =>
@@ -124,8 +122,12 @@ namespace CleanRestaurantApi
             {
                 var services = scope.ServiceProvider;
                 var dbContext = services.GetRequiredService<AppDbContext>();
+
+                dbContext.Database.Migrate();
+
                 await DbSeeder.SeedAsync(dbContext);
             }
+
 
             app.UseMiddleware<RequestLoggingMiddleware>();
             app.UseMiddleware<ErrorHandlingMiddleware>();

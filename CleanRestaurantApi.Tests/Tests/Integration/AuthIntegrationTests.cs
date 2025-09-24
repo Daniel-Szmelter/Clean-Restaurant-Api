@@ -1,9 +1,13 @@
-﻿using CleanRestaurantApi.Entities;
+﻿using CleanRestaurantApi.Data;
+using CleanRestaurantApi.Entities;
 using CleanRestaurantApi.Models;
 using CleanRestaurantApi.Models.Auth;
 using CleanRestaurantApi.Services;
 using CleanRestaurantAPI.Data;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Threading.Tasks;
+using Xunit;
 
 namespace CleanRestaurantApi.Tests.Integration
 {

@@ -4,6 +4,7 @@ using CleanRestaurantApi.Models.Auth;
 using CleanRestaurantApi.Services;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CleanRestaurantApi.Controllers
 {
@@ -36,7 +37,7 @@ namespace CleanRestaurantApi.Controllers
         public async Task<ActionResult> Create([FromBody] CreateRestaurantDto dto)
         {
             var restaurantId = await _restaurantService.CreateAsync(dto);
-            return Ok(new MessageResponseDto { Message = "Restaurant created succesfully" });
+            return Ok(new { id = restaurantId, Message = "Restaurant created succesfully" });
         }
 
         [HttpPatch("{id}")]

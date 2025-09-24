@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CleanRestaurantApi.Data;
 using CleanRestaurantApi.Entities;
 using CleanRestaurantApi.Mappings;
 using CleanRestaurantApi.Models;
@@ -8,6 +9,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
 using Moq;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Xunit;
 
 namespace CleanRestaurantApi.Tests.Services
 {

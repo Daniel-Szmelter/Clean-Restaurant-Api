@@ -1,4 +1,6 @@
-﻿namespace CleanRestaurantApi.Models
+﻿using CleanRestaurantApi.Entities;
+
+namespace CleanRestaurantApi.Models
 {
     public class CreateRestaurantDto
     {

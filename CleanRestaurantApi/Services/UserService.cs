@@ -42,7 +42,7 @@ namespace CleanRestaurantApi.Services
         }
 
         public async Task CreateAsync(CreateUserDto dto)
-        {
+        { 
             var user = new User
             {
                 Email = dto.Email,
@@ -57,21 +57,27 @@ namespace CleanRestaurantApi.Services
 
         public async Task UpdateAsync(int id, JsonPatchDocument<UpdateUserDto> patchDoc)
         {
-            if (patchDoc == null) throw new KeyNotFoundException("patchDoc cannot be null");
+            if (patchDoc == null)
+                throw new KeyNotFoundException("patchDoc cannot be null");
 
-            var user = await _context.User
-                .FirstOrDefaultAsync(r => r.Id == id);
-            if (user == null) throw new KeyNotFoundException("User not found");
+            var user = await _context.User.FirstOrDefaultAsync(r => r.Id == id);
+            if (user == null)
+                throw new KeyNotFoundException("User not found");
 
             var dto = _mapper.Map<UpdateUserDto>(user);
 
             patchDoc.ApplyTo(dto);
 
+            if (!string.IsNullOrEmpty(dto.Password))
+            {
+                user.PasswordHash = _passwordHasher.HashPassword(user, dto.Password);
+            }
+
             _mapper.Map(dto, user);
 
             await _context.SaveChangesAsync();
-
         }
+
 
         public async Task DeleteAsync(int id)
         {

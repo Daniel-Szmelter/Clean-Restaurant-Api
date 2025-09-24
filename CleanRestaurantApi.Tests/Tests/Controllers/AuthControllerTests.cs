@@ -1,9 +1,11 @@
-﻿using CleanRestaurantApi.Controllers;
+﻿using System.Threading.Tasks;
+using CleanRestaurantApi.Controllers;
 using CleanRestaurantApi.Models;
 using CleanRestaurantApi.Models.Auth;
 using CleanRestaurantApi.Services;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using Xunit;
 
 namespace CleanRestaurantApi.Tests.Controllers
 {
@@ -21,7 +23,7 @@ namespace CleanRestaurantApi.Tests.Controllers
         [Fact]
         public async Task Register_ShouldReturnOk_WhenUserIsCreated()
         {
-
+            
             var dto = new CreateUserDto
             {
                 Email = "test@example.com",
@@ -31,10 +33,10 @@ namespace CleanRestaurantApi.Tests.Controllers
             _authServiceMock.Setup(s => s.RegisterAsync(dto))
                             .Returns(Task.CompletedTask);
 
-
+            
             var result = await _controller.Register(dto);
 
-
+            
             var okResult = Assert.IsType<OkObjectResult>(result);
             var response = Assert.IsType<MessageResponseDto>(okResult.Value);
             Assert.Equal("User created succesfully", response.Message);
@@ -44,7 +46,7 @@ namespace CleanRestaurantApi.Tests.Controllers
         [Fact]
         public async Task Login_ShouldReturnOk_WithAuthResponse()
         {
-
+            
             var dto = new LoginDto
             {
                 Email = "test@example.com",
@@ -56,10 +58,10 @@ namespace CleanRestaurantApi.Tests.Controllers
             _authServiceMock.Setup(s => s.LoginAsync(dto))
                             .ReturnsAsync(expectedResponse);
 
-
+            
             var result = await _controller.Login(dto);
 
-
+            
             var okResult = Assert.IsType<OkObjectResult>(result.Result);
             var response = Assert.IsType<AuthResponseDto>(okResult.Value);
 

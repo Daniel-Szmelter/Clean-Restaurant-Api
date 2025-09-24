@@ -1,4 +1,6 @@
-﻿namespace CleanRestaurantApi.Entities
+﻿using CleanRestaurantApi.Data;
+
+namespace CleanRestaurantApi.Entities
 {
     public class Restaurant : AuditableEntity
     {

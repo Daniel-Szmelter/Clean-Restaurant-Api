@@ -1,15 +1,14 @@
-﻿using CleanRestaurantApi.Entities;
+﻿using CleanRestaurantApi.Data;
+using CleanRestaurantApi.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
+using System.Linq.Expressions;
+using System.Security.Claims;
 
 namespace CleanRestaurantAPI.Data
 {
     public class AppDbContext : DbContext
     {
-
-        private string _connectionString =
-    "Server=(localdb)\\mssqllocaldb;Database=CleanRestaurantDb;Trusted_Connection=True;";
-
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)
         {

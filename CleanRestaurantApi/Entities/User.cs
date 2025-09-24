@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CleanRestaurantApi.Data;
+using System.ComponentModel.DataAnnotations;
+using System.Data;
+using System.Security.Claims;
 
 namespace CleanRestaurantApi.Entities
 {

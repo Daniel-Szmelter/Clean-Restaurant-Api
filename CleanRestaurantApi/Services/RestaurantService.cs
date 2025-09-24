@@ -50,8 +50,8 @@ namespace CleanRestaurantApi.Services
              Name = d.Name,
              Price = d.Price,
              Description = d.Description,
-             CategoryId = d.CategoryId,
-             CategoryName = d.Category.Name
+             CategoryId = d.CategoryId,    
+             CategoryName = d.Category.Name 
          }).ToList()
      })
      .ToListAsync();

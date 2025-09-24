@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CleanRestaurantApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250902155946_fixDishRelations")]
-    partial class fixDishRelations
+    [Migration("20250909170351_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

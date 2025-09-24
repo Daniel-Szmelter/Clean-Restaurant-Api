@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CleanRestaurantApi.Data;
 using CleanRestaurantApi.Entities;
 using CleanRestaurantApi.Mappings;
 using CleanRestaurantApi.Models;
@@ -6,6 +7,7 @@ using CleanRestaurantApi.Services;
 using CleanRestaurantAPI.Data;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
+using Xunit;
 
 namespace CleanRestaurantApi.Tests.Integration
 {

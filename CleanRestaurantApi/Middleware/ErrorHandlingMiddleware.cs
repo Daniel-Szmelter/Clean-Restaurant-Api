@@ -17,13 +17,35 @@
             {
                 await _next(context);
             }
+            catch (KeyNotFoundException ex)
+            {
+                _logger.LogWarning(ex, "Resource not found");
+                await HandleExceptionAsync(context, StatusCodes.Status404NotFound, ex.Message);
+            }
+            catch (InvalidOperationException ex)
+            {
+                _logger.LogWarning(ex, "Business logic conflict");
+                await HandleExceptionAsync(context, StatusCodes.Status409Conflict, ex.Message);
+            }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Unhandled exception occurred");
-
-                context.Response.StatusCode = 500;
-                await context.Response.WriteAsJsonAsync(new { error = "An unexpected error occurred" });
+                await HandleExceptionAsync(context, StatusCodes.Status500InternalServerError, "An unexpected error occurred");
             }
+        }
+
+        private static async Task HandleExceptionAsync(HttpContext context, int statusCode, string message)
+        {
+            context.Response.StatusCode = statusCode;
+            context.Response.ContentType = "application/json";
+
+            var response = new
+            {
+                statusCode,
+                message
+            };
+
+            await context.Response.WriteAsJsonAsync(response);
         }
     }
 }

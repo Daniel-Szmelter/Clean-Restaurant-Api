@@ -64,10 +64,17 @@ namespace CleanRestaurantApi.Services
         public async Task DeleteAsync(int id)
         {
             var category = await _context.Category.FindAsync(id);
-            if (category == null) throw new KeyNotFoundException("Category not found");
+            if (category == null)
+                throw new KeyNotFoundException("Category not found");
+
+            bool hasDishes = await _context.Dish.AnyAsync(d => d.CategoryId == id);
+            if (hasDishes)
+                throw new InvalidOperationException("Cannot delete category because it has related dishes.");
 
             _context.Category.Remove(category);
             await _context.SaveChangesAsync();
         }
+
+
     }
 }

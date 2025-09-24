@@ -1,7 +1,13 @@
-﻿using CleanRestaurantApi.Models;
+﻿using CleanRestaurantApi.Entities;
+using CleanRestaurantApi.Models;
 using CleanRestaurantApi.Models.Auth;
 using CleanRestaurantApi.Services;
+using CleanRestaurantAPI.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace CleanRestaurantApi.Controllers
 {
