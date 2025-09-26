@@ -8,7 +8,7 @@ namespace CleanRestaurantApi.Entities
         public string Name { get; set; } = default!;
         public string City { get; set; } = default!;
         public string Street { get; set; } = default!;
-
+        public bool IsSeeded { get; set; } = false;
         public ICollection<Dish> Dishes { get; set; } = new List<Dish>();
     }
 }

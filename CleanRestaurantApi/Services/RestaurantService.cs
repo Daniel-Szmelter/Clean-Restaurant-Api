@@ -45,6 +45,7 @@ namespace CleanRestaurantApi.Services
          Name = r.Name,
          City = r.City,
          Street = r.Street,
+         IsSeeded = r.IsSeeded,
          Dishes = r.Dishes.Select(d => new DishDto
          {
              Name = d.Name,

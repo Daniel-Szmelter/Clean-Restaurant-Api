@@ -18,9 +18,9 @@ namespace CleanRestaurantApi.Data
                 {
                     var Category = new List<Category>
                 {
-                    new Category { Name = "Pizza" },
-                    new Category { Name = "Pasta" },
-                    new Category { Name = "Drinks" }
+                    new Category { Name = "Pizza", IsSeeded = true },
+                    new Category { Name = "Pasta", IsSeeded = true },
+                    new Category { Name = "Drinks", IsSeeded = true }
                 };
                     context.Category.AddRange(Category);
                     context.SaveChanges();
@@ -50,7 +50,8 @@ namespace CleanRestaurantApi.Data
                             new Dish { Name = "Espresso", Price = 7m, CategoryId = drinksCategory.Id, Description = "Strong and aromatic Italian espresso shot." },
                             new Dish { Name = "Lemonade", Price = 9m, CategoryId = drinksCategory.Id, Description = "Refreshing homemade lemonade with fresh lemons." },
                             new Dish { Name = "Cappuccino", Price = 10m, CategoryId = drinksCategory.Id, Description = "Italian coffee with steamed milk foam." }
-                        }
+                        },
+                        IsSeeded = true
                     },
 
                     new Restaurant
@@ -70,7 +71,8 @@ namespace CleanRestaurantApi.Data
                             new Dish { Name = "Mineral Water", Price = 6m, CategoryId = drinksCategory.Id, Description = "Refreshing still mineral water." },
                             new Dish { Name = "Limoncello", Price = 15m, CategoryId = drinksCategory.Id, Description = "Italian lemon liqueur served chilled." },
                             new Dish { Name = "Negroni", Price = 16m, CategoryId = drinksCategory.Id, Description = "Classic Italian cocktail with gin, vermouth, and Campari." }
-                        }
+                        },
+                        IsSeeded = true
                     },
 
                     new Restaurant
@@ -90,7 +92,8 @@ namespace CleanRestaurantApi.Data
                             new Dish { Name = "Smoothie Bowl", Price = 16m, CategoryId = drinksCategory.Id, Description = "Fresh fruit smoothie served with granola and berries." },
                             new Dish { Name = "House Beer", Price = 12m, CategoryId = drinksCategory.Id, Description = "Locally brewed draft beer." },
                             new Dish { Name = "Whiskey Sour", Price = 14m, CategoryId = drinksCategory.Id, Description = "Classic American cocktail with whiskey and lemon juice." }
-                        }
+                        },
+                        IsSeeded = true
                     },
 
                     new Restaurant
@@ -110,7 +113,8 @@ namespace CleanRestaurantApi.Data
                             new Dish { Name = "Negroni", Price = 15m, CategoryId = drinksCategory.Id, Description = "Classic cocktail with gin, vermouth, and Campari." },
                             new Dish { Name = "Espresso Doppio", Price = 8m, CategoryId = drinksCategory.Id, Description = "Double shot of Italian espresso." },
                             new Dish { Name = "Campari Soda", Price = 14m, CategoryId = drinksCategory.Id, Description = "Refreshing cocktail with Campari and soda water." }
-                        }
+                        },
+                        IsSeeded = true
                     },
 
                     new Restaurant
@@ -130,7 +134,8 @@ namespace CleanRestaurantApi.Data
                             new Dish { Name = "Prosecco", Price = 18m, CategoryId = drinksCategory.Id, Description = "Italian sparkling wine." },
                             new Dish { Name = "Espresso Macchiato", Price = 9m, CategoryId = drinksCategory.Id, Description = "Espresso with a dash of milk foam." },
                             new Dish { Name = "Hot Chocolate", Price = 12m, CategoryId = drinksCategory.Id, Description = "Rich and creamy Italian hot chocolate." }
-                        }
+                        },
+                        IsSeeded = true
                     },
 
                     new Restaurant
@@ -150,7 +155,8 @@ namespace CleanRestaurantApi.Data
                             new Dish { Name = "Craft IPA", Price = 15m, CategoryId = drinksCategory.Id, Description = "Locally brewed craft IPA." },
                             new Dish { Name = "Manhattan", Price = 18m, CategoryId = drinksCategory.Id, Description = "Classic cocktail with whiskey, vermouth, and bitters." },
                             new Dish { Name = "Hot Dog Pizza", Price = 27m, CategoryId = pizzaCategory.Id, Description = "New York-style pizza topped with hot dog slices and mustard." }
-                        }
+                        },
+                        IsSeeded = true
                     },
 
                     new Restaurant
@@ -170,7 +176,8 @@ namespace CleanRestaurantApi.Data
                             new Dish { Name = "Sushi Soda", Price = 11m, CategoryId = drinksCategory.Id, Description = "Japanese soda with fruity flavor." },
                             new Dish { Name = "Gyoza Pizza", Price = 31m, CategoryId = pizzaCategory.Id, Description = "Pizza topped with gyoza dumplings." },
                             new Dish { Name = "Udon Carbonara", Price = 29m, CategoryId = pastaCategory.Id, Description = "Japanese udon noodles with Italian carbonara sauce." }
-                        }
+                        },
+                        IsSeeded = true
                     },
 
                     new Restaurant
@@ -190,7 +197,8 @@ namespace CleanRestaurantApi.Data
                             new Dish { Name = "Crêpe Pizza", Price = 28m, CategoryId = pizzaCategory.Id, Description = "Thin crêpe topped like a pizza." },
                             new Dish { Name = "Baguette Bruschetta", Price = 19m, CategoryId = pizzaCategory.Id, Description = "Toasted baguette slices with toppings." },
                             new Dish { Name = "Macaron Shake", Price = 15m, CategoryId = drinksCategory.Id, Description = "Milkshake inspired by French macarons." }
-                        }
+                        },
+                        IsSeeded = true
                     },
 
                     new Restaurant
@@ -210,7 +218,8 @@ namespace CleanRestaurantApi.Data
                             new Dish { Name = "Sauerkraut Pizza", Price = 24m, CategoryId = pizzaCategory.Id, Description = "Pizza topped with sauerkraut and sausage." },
                             new Dish { Name = "Jägermeister Shot", Price = 14m, CategoryId = drinksCategory.Id, Description = "German herbal liqueur." },
                             new Dish { Name = "Black Forest Shake", Price = 16m, CategoryId = drinksCategory.Id, Description = "Milkshake inspired by Black Forest cake." }
-                        }
+                        },
+                        IsSeeded = true
                     },
                     new Restaurant
                     {
@@ -229,7 +238,8 @@ namespace CleanRestaurantApi.Data
                             new Dish { Name = "Pasta al Ajillo", Price = 26m, CategoryId = pastaCategory.Id, Description = "Pasta sautéed with garlic, chili, and olive oil." },
                             new Dish { Name = "Cava", Price = 15m, CategoryId = drinksCategory.Id, Description = "Spanish sparkling wine from Catalonia." },
                             new Dish { Name = "Patatas Bravas Pizza", Price = 28m, CategoryId = pizzaCategory.Id, Description = "Pizza topped with spicy potatoes and aioli." }
-                        }
+                        },
+                        IsSeeded = true
                     }
 
                 };
@@ -256,9 +266,9 @@ namespace CleanRestaurantApi.Data
 
                     var users = new List<User>
                 {
-                    new User { Email = "user@restaurant.com",   PasswordHash = hasher.HashPassword(null, "User123!"),    Role = "User"},
-                    new User { Email = "manager@restaurant.com", PasswordHash = hasher.HashPassword(null, "Manager123!"),  Role = "Manager"},
-                    new User { Email = "admin@restaurant.com",    PasswordHash = hasher.HashPassword(null, "Admin123!"),    Role = "Admin"},
+                    new User { Email = "user@restaurant.com",   PasswordHash = hasher.HashPassword(null, "User123!"),    Role = "User", IsSeeded = true},
+                    new User { Email = "manager@restaurant.com", PasswordHash = hasher.HashPassword(null, "Manager123!"),  Role = "Manager", IsSeeded = true},
+                    new User { Email = "admin@restaurant.com",    PasswordHash = hasher.HashPassword(null, "Admin123!"),    Role = "Admin", IsSeeded = true},
                 };
 
                     context.User.AddRange(users);

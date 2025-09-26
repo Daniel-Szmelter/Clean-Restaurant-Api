@@ -15,6 +15,7 @@ namespace CleanRestaurantApi.Entities
         [Required]
         public string PasswordHash { get; set; } = default!;
         public string? Role { get; set; } = "User";
+        public bool IsSeeded { get; set; } = false;
         public string? RefreshToken { get; set; }
         public DateTime? RefreshTokenExpiryTime { get; set; }
     }

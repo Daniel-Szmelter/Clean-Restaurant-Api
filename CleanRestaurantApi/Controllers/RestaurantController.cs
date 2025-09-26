@@ -20,14 +20,14 @@ namespace CleanRestaurantApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Restaurant>> GetById(int id)
+        public async Task<ActionResult<RestaurantDto>> GetById(int id)
         {
             var restaurant = await _restaurantService.GetByIdAsync(id);
             return Ok(restaurant);
         }
 
         [HttpGet]
-        public async Task<ActionResult<Restaurant>> GetAll()
+        public async Task<ActionResult<RestaurantDto>> GetAll()
         {
             var restaurants = await _restaurantService.GetAllAsync();
             return Ok(restaurants);
